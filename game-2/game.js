@@ -88,6 +88,5 @@ var Game = function (fps, images, runCallback) {
             runloop()
         }, 1000/fps)
     }
-x
     return g
 }
