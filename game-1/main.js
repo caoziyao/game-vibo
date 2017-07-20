@@ -30,6 +30,7 @@ var enableDebugMode = function(game, enable) {
             window.paused = !window.paused
         } else if ('1234567'.includes(k)) {
             // 为了 debug 临时加的载入关卡功能
+            level = k
             blocks = loadLevel(game, Number(k))
         }
     })
@@ -43,9 +44,10 @@ var enableDebugMode = function(game, enable) {
 
 var __main = function () {
     var images = {
-        ball: 'ball.png',
-        block: 'block.png',
-        paddle: 'paddle.png',
+        ball: 'img/ball.png',
+        block: 'img/block.png',
+        paddle: 'img/paddle.png',
+        background: 'img/starfield.jpg',
     }
 
 

@@ -4,13 +4,22 @@
     <meta charset="utf-8">
     <title>game</title>
     <style media="screen">
-      canvas {
-        border: 1px black solid;
-      }
+    canvas {
+            border: 1px black solid;
+        }
     </style>
   </head>
   <body>
-      <canvas id="id-canvas" width="400" height="300"></canvas>
-      <script src="game.js"></script>
+    <canvas id="id-canvas" width="800" height="600"></canvas>
+    <hr>
+    <input id=id-input-speed type="range" value="1">
+    <script src='utils.js'></script>
+        <script src='paddle.js'></script>
+        <script src='ball.js'></script>
+        <script src='block.js'></script>
+        <script src='scene.js'></script>
+        <script src='scene_end.js'></script>
+    <script src="game.js"></script>
+    <script src="main.js"></script>
   </body>
 </html>

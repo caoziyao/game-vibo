@@ -30,6 +30,15 @@ var Game = function (fps, images, runCallback) {
         g.actions[key] = callback
     }
 
+    // update
+    g.update = function() {
+        g.scene.update()
+    }
+    // draw
+    g.draw = function() {
+        g.scene.draw()
+    }
+
     // timer
     window.fps = 30
     var runloop = function() {
@@ -67,9 +76,21 @@ var Game = function (fps, images, runCallback) {
             loads.push(1)
             if (loads.length == names.length) {
                 log('load images', g.images)
-                g.run()
+                g.__start()
             }
         }
+    }
+
+    g.runWithScene = function(scene) {
+        g.scene = scene
+        // 开始运行程序
+        setTimeout(function(){
+            runloop()
+        }, 1000/fps)
+    }
+
+    g.replaceScene = function(scene) {
+        g.scene = scene
     }
 
     g.imageByName = function(name) {
@@ -82,11 +103,8 @@ var Game = function (fps, images, runCallback) {
         return image
     }
 
-    g.run = function() {
+    g.__start = function() {
         runCallback(g)
-        setTimeout(function(){
-            runloop()
-        }, 1000/fps)
     }
     return g
 }
