@@ -1,60 +1,52 @@
-// 瓜
 class Game {
     constructor(fps, images, runCallback) {
         window.fps = fps
         this.images = images
         this.runCallback = runCallback
+
         //
         this.scene = null
-        this.actions = {}
-        this.keydowns = {}
         this.canvas = document.querySelector('#id-canvas')
         this.context = this.canvas.getContext('2d')
+
+        // 事件动作
+        this.actions = {}
+        // 是否按下键，如果按下则为 True
+        this.keydowns = {}
+
         // events
-        var self = this
         window.addEventListener('keydown', event => {
             this.keydowns[event.key] = true
         })
-        window.addEventListener('keyup', function(event){
-            self.keydowns[event.key] = false
+        window.addEventListener('keyup', event => {
+            this.keydowns[event.key] = false
         })
+
         this.init()
     }
 
-    restart() {
-        var g = this
-        var s = Scene(g)
-        this.replaceScene(s)
-    }
-
+    //
     static instance(...args) {
         this.i = this.i || new this(...args)
         return this.i
     }
-    drawImage(img) {
-        this.context.drawImage(img.image, img.x, img.y)
+
+    runWithScene(scene) {
+        var g = this
+        g.scene = scene
+        // 开始执行程序
+        setTimeout(function() {
+            g.runloop()
+        }, 1000/window.fps)
     }
-    // update
-    update() {
-        this.scene.update()
-    }
-    // draw
-    draw() {
-        this.scene.draw()
-    }
-    //
-    registerAction(key, callback) {
-        this.actions[key] = callback
-    }
+
     runloop() {
-        log(window.fps)
-        // events
+        //log(window.fps)
         var g = this
         var actions = Object.keys(g.actions)
         for (var i = 0; i < actions.length; i++) {
             var key = actions[i]
-            if(g.keydowns[key]) {
-                // 如果按键被按下, 调用注册的 action
+            if (g.keydowns[key]) {
                 g.actions[key]()
             }
         }
@@ -62,38 +54,37 @@ class Game {
         g.update()
         // clear
         g.context.clearRect(0, 0, g.canvas.width, g.canvas.height)
-        // draw
+        //
         g.draw()
-        // next run loop
-        setTimeout(function(){
+        // new run loop
+        setTimeout(function() {
             g.runloop()
         }, 1000/window.fps)
     }
 
-    imageByName(name) {
-        var g = this
-        log('image by name', g.images)
-        var img = g.images[name]
-        var image = {
-            w: img.width,
-            h: img.height,
-            image: img,
-        }
-        return image
+    // update
+    update() {
+        this.scene.update()
     }
-    runWithScene(scene) {
-        var g = this
-        g.scene = scene
-        // 开始运行程序
-        setTimeout(function(){
-            g.runloop()
-        }, 1000/window.fps)
+
+    // draw
+    draw() {
+        this.scene.draw()
     }
+
+    //
+    registerAction(key, callback) {
+        this.actions[key] = callback
+    }
+
+    __start(scene) {
+        log('start game')
+        this.runCallback(this)
+    }
+
     replaceScene(scene) {
         this.scene = scene
-    }
-    __start(scene) {
-        this.runCallback(this)
+
     }
 
     init() {
@@ -111,9 +102,8 @@ class Game {
                 g.images[name] = img
                 // 所有图片都成功载入之后, 调用 run
                 loads.push(1)
-                log('load images', loads.length, names.length)
+                log('load images', g.images)
                 if (loads.length == names.length) {
-                    log('load images', g.images)
                     g.__start()
                 }
             }
