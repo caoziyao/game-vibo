@@ -51,8 +51,8 @@ var __main = function () {
     }
 
 
-    var game = Game(30, images, function(g) {
-        var s = Scene(g)
+    var game = Game.instance(30, images, function(g) {
+        var s = SceneTitle.new(g)
         g.runWithScene(s)
     })
 

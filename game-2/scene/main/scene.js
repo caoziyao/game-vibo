@@ -5,11 +5,10 @@ var Scene = function(game) {
     // 初始化
     var paddle = Paddle(game)
     var ball = Ball(game)
-    var background = game.imageByName('background');
 
     var score = 0
-    level = 1
-    blocks = loadLevel(game, level)
+
+    var blocks = loadLevel(game, 1)
 
     game.registerAction('a', function(){
         paddle.moveLeft()
@@ -23,10 +22,9 @@ var Scene = function(game) {
 
     s.draw = function() {
         // draw 背景
-        // game.context.fillStyle = "#554"
-        // game.context.fillRect(0, 0, 400, 300)
+        game.context.fillStyle = "#554"
+        game.context.fillRect(0, 0, 400, 300)
         // draw
-        game.context.drawImage(background.image, 0, 0, 800, 600);
         game.drawImage(paddle)
         game.drawImage(ball)
         // draw blocks
@@ -37,12 +35,7 @@ var Scene = function(game) {
             }
         }
         // draw labels
-        //1. 使用`font`设置字体。
-       game.context.font = "16px serif";
-       //2. 使用`fillStyle`设置字体颜色。
-       game.context.fillStyle = "#ffffff";
-       game.context.fillText('关卡: ' + level, 10, 360)
-        game.context.fillText('分数: ' + score, 10, 390)
+        game.context.fillText('分数: ' + score, 10, 290)
     }
     s.update = function() {
         if (window.paused) {
@@ -53,7 +46,7 @@ var Scene = function(game) {
         // 判断游戏结束
         if (ball.y > paddle.y) {
             // 跳转到 游戏结束 的场景
-            var end = SceneEnd(game)
+            var end = SceneEnd.new(game)
             game.replaceScene(end)
         }
         // 判断相撞

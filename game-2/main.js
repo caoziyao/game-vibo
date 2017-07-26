@@ -1,22 +1,14 @@
-var loadLevel = function (game, row) {
+var loadLevel = function(game, n) {
+    n = n - 1
+    var level = levels[n]
     var blocks = []
-    var spaceX = 80;
-    var spaceY = 40;
-    var ncol = 10;
-
-    for (var i = 0; i < row; i++) {
-        for (var col = 0; col < ncol; col++) {
-            var position = {
-              x: (col) * spaceX,
-              y: (i) * spaceY,
-            }
-            var b = Block(game, position)
-            blocks.push(b)
-        }
+    for (var i = 0; i < level.length; i++) {
+        var p = level[i]
+        var b = Block(game, p)
+        blocks.push(b)
     }
-    return blocks;
+    return blocks
 }
-
 
 var enableDebugMode = function(game, enable) {
     if(!enable) {
@@ -41,22 +33,18 @@ var enableDebugMode = function(game, enable) {
     })
 }
 
-var __main = function () {
+var __main = function() {
     var images = {
-        ball: 'ball.png',
-        block: 'block.png',
-        paddle: 'paddle.png',
+        ball: 'img/ball.png',
+        block: 'img/block.png',
+        paddle: 'img/paddle.png',
     }
-
-
-    var game = Game(30, images, function(g) {
-        var s = Scene(g)
+    var game = GuaGame.instance(30, images, function(g){
+        var s = SceneTitle.new(g)
         g.runWithScene(s)
     })
 
-    enableDebugMode(game, true);
-
-
+    enableDebugMode(game, true)
 }
 
 __main()

@@ -1,5 +1,6 @@
 
 var Paddle = function (game) {
+    log('game', game)
     var o = game.imageByName('paddle')
     o.x = 100
     o.y = 450
