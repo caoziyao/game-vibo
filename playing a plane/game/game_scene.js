@@ -2,10 +2,12 @@ class GuaScene {
     constructor(game) {
         this.game = game
     }
-    static new(game) {
-        var i = new this(game)
-        return i
+
+    static new(...args) {
+        this.i = new this(...args)
+        return this.i
     }
+
     draw() {
 
     }

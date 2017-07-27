@@ -16,6 +16,7 @@ class Game {
 
         // events
         window.addEventListener('keydown', event => {
+            log('event.key', event.key)
             this.keydowns[event.key] = true
         })
         window.addEventListener('keyup', event => {
@@ -85,6 +86,24 @@ class Game {
     replaceScene(scene) {
         this.scene = scene
 
+    }
+
+    // 加载图片
+    imageByName(name) {
+        var g = this
+        var img = g.images[name]
+        // var image = {
+        //     w: img.width,
+        //     h: img.height,
+        //     image: img,
+        // }
+        return img
+    }
+
+    // 画图
+    drawImage(element, size) {
+        var img = element.image
+        this.context.drawImage(img.texture, element.x, element.y, img.w, img.h)
     }
 
     init() {
