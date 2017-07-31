@@ -3,8 +3,8 @@ class SceneBullet {
         this.game = game
         //this.background = game.imageByName('bg')
         this.image = GuaImage.new(game, 'bullet')
-        this.image.w = 5
-        this.image.h = 10
+        this.w = 5
+        this.h = 10
         // 图片坐标
         this.x = 165
         this.y = 410

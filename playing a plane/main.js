@@ -2,7 +2,7 @@
 
 var __main = function() {
     var images = {
-        bg: 'img/bg.png',
+        background: 'img/bg.png',
         bullet: 'img/bullet.png',
         enemy: 'img/enemy.png',
         hero: 'img/hero.png',

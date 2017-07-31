@@ -2,13 +2,27 @@ class SceneMain extends GuaScene {
     constructor(game) {
         super(game)
 
-        this.background = GuaImage.new(game, 'bg')
-        // this.background = game.imageByName('bg')
+        this.bg = SceneBackground.new(game, 'background')
+        // this.bg = game.imageByName('bg')
         this.hero = SceneHero.new(game)
         // this.bullet = SceneBullet.new(game)
         this.bullets = []
         this.enemys = []
 
+        this.addElement(this.bg)
+        this.addElement(this.hero)
+        this.generateEnemy()
+        this.setup()
+    }
+
+    static new(...args) {
+        this.i = new this(...args)
+        return this.i
+    }
+
+    // 初始化
+    setup() {
+        var game = this.game
         // 飞机运动
         game.registerAction('a', () => {
             this.hero.moveLeft()
@@ -28,23 +42,13 @@ class SceneMain extends GuaScene {
             bullet.x = this.hero.x + 24
             bullet.y = this.hero.y
             this.bullets.push(bullet)
+            this.addElement(bullet)
             bullet.fire()
         })
-
-        this.elements = []
-        this.elements.push(this.background)
-        this.elements.push(this.hero)
-
-        this.setup()
     }
 
-    static new(...args) {
-        this.i = new this(...args)
-        return this.i
-    }
-
-    // 初始化
-    setup() {
+    // create e
+    generateEnemy() {
         var game = this.game
         var n = 3   // 3 个敌人
         for (var i = 0; i < 3; i++) {
@@ -52,31 +56,12 @@ class SceneMain extends GuaScene {
             enemy.x = (i + 1) * 54
             enemy.y = (i + 1) * 50
             this.enemys.push(enemy)
+            this.addElement(enemy)
         }
     }
 
     draw() {
-
-        this.game.context.drawImage(this.background.texture, 0, 0, 400, 600)
-        //this.game.context.fillText('游戏', 100, 190)
-
-        this.game.drawImage(this.hero)
-
-        // 画子弹
-        for (var i = 0; i < this.bullets.length; i++) {
-            var bullet = this.bullets[i]
-            if (!bullet.killed) {
-                this.game.drawImage(bullet)
-            }
-        }
-        // 画敌人
-        for (var i = 0; i < this.enemys.length; i++) {
-            var enemy = this.enemys[i]
-            if (enemy.alive) {
-                this.game.drawImage(enemy)
-            }
-        }
-
+        super.draw()
     }
 
     update() {
@@ -116,12 +101,10 @@ class SceneMain extends GuaScene {
 
         }
         if (this.enemys.length == 0) {
-            this.setup()
+            this.generateEnemy()
         }
 
         // 子弹碰撞
-
-
     }
 
 }

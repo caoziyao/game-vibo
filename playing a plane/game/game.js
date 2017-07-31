@@ -101,9 +101,9 @@ class Game {
     }
 
     // 画图
-    drawImage(element, size) {
+    drawImage(element) {
         var img = element.image
-        this.context.drawImage(img.texture, element.x, element.y, img.w, img.h)
+        this.context.drawImage(img.texture, element.x, element.y, element.w, element.h)
     }
 
     init() {

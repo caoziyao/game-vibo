@@ -3,8 +3,8 @@ class SceneEnemy {
         this.game = game
         //this.background = game.imageByName('bg')
         this.image = GuaImage.new(game, 'enemy')
-        this.image.w = 50
-        this.image.h = 50
+        this.w = 50
+        this.h = 50
         // 图片坐标
         this.x = 10
         this.y = 30

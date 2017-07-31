@@ -3,8 +3,8 @@ class SceneHero {
         this.game = game
 
         this.image = GuaImage.new(game, 'hero')
-        this.image.w = this.image.w / 2
-        this.image.h = this.image.h / 2
+        this.w = this.image.w / 2
+        this.h = this.image.h / 2
         // 图片坐标
         this.x = 150
         this.y = 450
