@@ -3,6 +3,12 @@ class SceneHero {
         this.game = game
 
         this.image = GuaImage.new(game, 'hero')
+
+        this.setup()
+        this.setupInputs()
+    }
+
+    setup() {
         this.w = this.image.w / 2
         this.h = this.image.h / 2
         this.bullets = []
@@ -10,8 +16,8 @@ class SceneHero {
         this.x = 150
         this.y = 450
         this.speed = 10
-        
-        this.setupInputs()
+        // 子弹冷却时间
+        this.cooldown = 0
     }
 
     static new(...args) {
@@ -57,17 +63,28 @@ class SceneHero {
     }
 
     update() {
+        if (this.cooldown > 0) {
+            this.cooldown--
+        }
+    }
 
+    debug() {
+        // 动态速度
+        this.speed = config.hero_speed
     }
 
     // 发射子弹
     fire() {
-        var game = this.game
-        var bullet = SceneBullet.new(game)
-        bullet.x = this.x + 24
-        bullet.y = this.y
-        this.bullets.push(bullet)
-        this.scene.addElement(bullet)
+        if (this.cooldown == 0) {
+            this.cooldown = 6
+            var game = this.game
+            var bullet = SceneBullet.new(game)
+            bullet.x = this.x + 24
+            bullet.y = this.y
+            this.bullets.push(bullet)
+            this.scene.addElement(bullet)
+        }
+
         // bullet.fire()
     }
 }

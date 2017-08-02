@@ -53,6 +53,7 @@ class SceneMain extends GuaScene {
     update() {
         super.update()
         var game = this.game
+        
 
         // 子弹更新
         // for (var i = 0; i < this.bullets.length; i++) {
