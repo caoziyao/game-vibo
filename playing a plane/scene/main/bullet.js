@@ -12,7 +12,7 @@ class SceneBullet {
         // 发射子弹
         this.fired = false
         // 子弹消失
-        this.killed = false
+        this.alive = true
     }
 
     static new(...args) {
@@ -20,21 +20,27 @@ class SceneBullet {
         return this.i
     }
 
-    // fire() {
-    //     log('发射子弹')
-    //     this.fired = true
-    // }
 
     move() {
         this.y -= this.speed
     }
 
     kill() {
-        this.killed = true
+        this.alive = false
     }
 
     update() {
         this.move()
+    }
+
+    debug() {
+        this.speed = config.bullet_speed
+    }
+
+    collide(enemy) {
+        // 子弹击中
+        return  rectIntersects(this, enemy) || rectIntersects(enemy, this)
+
     }
 
 

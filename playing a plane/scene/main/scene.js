@@ -7,7 +7,6 @@ class SceneMain extends GuaScene {
         this.hero = SceneHero.new(game)
         this.hero.scene = this
         // this.bullet = SceneBullet.new(game)
-        this.bullets = []
         this.enemys = []
 
         this.setup()
@@ -53,37 +52,23 @@ class SceneMain extends GuaScene {
     update() {
         super.update()
         var game = this.game
-        
-
-        // 子弹更新
-        // for (var i = 0; i < this.bullets.length; i++) {
-        //     var bullet = this.bullets[i]
-        //     if (bullet.y < 0) {
-        //         bullet.kill()
-        //     }
-        //     if (!bullet.killed) {
-        //         bullet.move()
-        //     }
-        // }
-
-        // 敌人更新
-        // for (var i = 0; i < this.enemys.length; i++) {
-        //     var enemy = this.enemys[i]
-        //     enemy.update()
-        //
-        // }
-        // // 被子弹击中
-        // for (var j = 0; j < this.bullets.length; j++) {
-        //     var bullet = this.bullets[j]
-        //     if (enemy.collide(bullet)) {
-        //         var enemy_down = GuaImage.new(game,'enemy_down')
-        //         enemy.killing()
-        //         enemy.image = enemy_down
-        //
-        //     }
-        // }
 
         // 子弹碰撞
+        for (var i = 0; i < this.hero.bullets.length; i++) {
+            var b = this.hero.bullets[i]
+
+            for (var j = 0; j < this.enemys.length; j++) {
+                var e = this.enemys[j]
+                if (b.collide(e)) {
+                    b.kill()
+                    this.hero.removeBullet(i)
+                    e.killing()
+                }
+
+            }
+
+        }
+
     }
 
 }

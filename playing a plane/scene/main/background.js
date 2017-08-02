@@ -7,6 +7,7 @@ class SceneBackground {
         this.y = 0
         this.w = 400
         this.h = 600
+        this.alive = true
 
     }
 

@@ -3,12 +3,13 @@ class SceneHero {
         this.game = game
 
         this.image = GuaImage.new(game, 'hero')
-
+        this.debugModeEnabled = true
         this.setup()
         this.setupInputs()
     }
 
     setup() {
+        this.alive = true
         this.w = this.image.w / 2
         this.h = this.image.h / 2
         this.bullets = []
@@ -66,6 +67,8 @@ class SceneHero {
         if (this.cooldown > 0) {
             this.cooldown--
         }
+
+
     }
 
     debug() {
@@ -86,5 +89,10 @@ class SceneHero {
         }
 
         // bullet.fire()
+    }
+
+    //
+    removeBullet(index) {
+        this.bullets.splice(index,1)
     }
 }
