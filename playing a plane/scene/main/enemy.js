@@ -18,7 +18,7 @@ class SceneEnemy {
         // 图片坐标
         this.x = randonBetween(0, 350)
         this.y = randonBetween(0, 200)
-        this.speed = randonBetween(5, 15)
+        this.speed = randonBetween(4, 13)
 
         // 敌人消失
         this.alive = true
@@ -28,6 +28,8 @@ class SceneEnemy {
         this.i = new this(...args)
         return this.i
     }
+
+
 
     move() {
         this.y += this.speed
