@@ -12,11 +12,14 @@ class GuaScene {
     draw() {
         for (var i = 0; i < this.elements.length; i++) {
             var e = this.elements[i]
-            log('e', e)
             this.game.drawImage(e)
         }
     }
     update() {
+        for (var i = 0; i < this.elements.length; i++) {
+            var e = this.elements[i]
+            e.update()
+        }
 
     }
 

@@ -1,14 +1,27 @@
+
+
+
 class SceneEnemy {
     constructor(game) {
         this.game = game
         //this.background = game.imageByName('bg')
-        this.image = GuaImage.new(game, 'enemy')
+        var type = randonBetween(1, 3)
+        var name = 'enemy' + type
+        log('name', name)
+        this.image = GuaImage.new(game, name)
+
+        //
+        this.setUp()
+
+    }
+
+    setUp() {
         this.w = 50
         this.h = 50
         // 图片坐标
-        this.x = 10
-        this.y = 30
-        this.speed = 5
+        this.x = randonBetween(0, 350)
+        this.y = randonBetween(0, 200)
+        this.speed = randonBetween(5, 15)
 
         // 敌人消失
         this.alive = true
@@ -37,7 +50,7 @@ class SceneEnemy {
         var self = this
         setTimeout(function () {
             self.kill()
-        }, 250)
+        }, 150)
     }
 
     rectIntersects(a, b) {
@@ -52,6 +65,14 @@ class SceneEnemy {
 
     collide(b) {
         return this.alive && this.rectIntersects(this, b) || this.rectIntersects(b, this)
+    }
+
+    update() {
+        if (this.y > 600) {
+            this.setUp()
+        }
+
+        this.move()
     }
 
 }

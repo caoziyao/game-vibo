@@ -20,10 +20,10 @@ class SceneBullet {
         return this.i
     }
 
-    fire() {
-        log('发射子弹')
-        this.fired = true
-    }
+    // fire() {
+    //     log('发射子弹')
+    //     this.fired = true
+    // }
 
     move() {
         this.y -= this.speed
@@ -31,6 +31,10 @@ class SceneBullet {
 
     kill() {
         this.killed = true
+    }
+
+    update() {
+        this.move()
     }
 
 

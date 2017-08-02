@@ -15,5 +15,8 @@ class SceneBackground {
         return this.i
     }
 
+    update() {
+
+    }
 
 }
