@@ -7,7 +7,7 @@ class SceneTitle extends GuaScene {
             game.replaceScene(s)
         })
 
-        this.bg = game.imageByName('background')
+        this.background = game.imageByName('background')
         this.init()
     }
 
@@ -17,7 +17,7 @@ class SceneTitle extends GuaScene {
     }
 
     draw() {
-        this.game.context.drawImage(this.bg.image, 0, 0, 400, 600)
+        this.game.context.drawImage(this.background, 0, 0, 400, 600)
         this.game.context.fillText('按 k 开始游戏', 100, 190)
     }
 

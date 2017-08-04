@@ -71,6 +71,10 @@ class SceneHero {
 
     }
 
+    draw() {
+        this.game.drawImage(this)
+    }
+
     debug() {
         // 动态速度
         this.speed = config.hero_speed

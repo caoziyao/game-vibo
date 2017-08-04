@@ -43,5 +43,8 @@ class SceneBullet {
 
     }
 
+    draw() {
+        this.game.drawImage(this)
+    }
 
 }

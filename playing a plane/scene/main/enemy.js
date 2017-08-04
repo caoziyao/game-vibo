@@ -53,6 +53,9 @@ class SceneEnemy {
         }, 150)
     }
 
+    draw() {
+        this.game.drawImage(this)
+    }
 
 
     // collide(b) {
