@@ -3,26 +3,35 @@ class SceneMain extends GuaScene {
         super(game)
 
         this.bg = SceneBackground.new(game, 'background')
-        // this.bg = game.imageByName('bg')
-        // this.hero = SceneHero.new(game)
-        // this.hero.scene = this
-        // this.bullet = SceneBullet.new(game)
-        // this.enemys = []
+        this.w = GuaAnimation.new(game)
 
         this.setup()
 
         this.addElement(this.bg)
+        this.addElement(this.w)
         log('this.enemys', this.bg ,this.enemys)
         // this.addElement(this.hero)
 
         // 添加敌人
         // this.addElements()
+        this.setupInputs()
 
     }
 
     static new(...args) {
         this.i = new this(...args)
         return this.i
+    }
+
+    setupInputs() {
+        var self = this
+        self.game.registerAction('d', function() {
+            self.w.move(2)
+        })
+
+        self.game.registerAction('a', function() {
+            self.w.move(-2)
+        })
     }
 
     // addElements() {

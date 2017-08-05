@@ -21,7 +21,6 @@ class SceneBackground {
     }
 
     draw() {
-
         this.game.drawImage(this)
     }
 
