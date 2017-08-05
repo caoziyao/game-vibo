@@ -17,10 +17,10 @@ class Game {
         // events
         window.addEventListener('keydown', event => {
             log('event.key', event.key)
-            this.keydowns[event.key] = true
+            this.keydowns[event.key] = 'down'
         })
         window.addEventListener('keyup', event => {
-            this.keydowns[event.key] = false
+            this.keydowns[event.key] = 'up'
         })
 
         this.init()
@@ -47,9 +47,18 @@ class Game {
         var actions = Object.keys(g.actions)
         for (var i = 0; i < actions.length; i++) {
             var key = actions[i]
-            if (g.keydowns[key]) {
-                g.actions[key]()
+            var status = g.keydowns[key]
+            if (status == 'down') {
+                g.actions[key]('down')
+            } else if (status == 'up') {
+                g.actions[key]('up')
+                // 删除 key 状态
+                g.keydowns[key] = null
             }
+            // var key = actions[i]
+            // if (g.keydowns[key]) {
+            //
+            // }
         }
         // update
         g.update()

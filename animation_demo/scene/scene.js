@@ -25,12 +25,12 @@ class SceneMain extends GuaScene {
 
     setupInputs() {
         var self = this
-        self.game.registerAction('d', function() {
-            self.w.move(2)
+        self.game.registerAction('d', function(status) {
+            self.w.move(2, status)
         })
 
-        self.game.registerAction('a', function() {
-            self.w.move(-2)
+        self.game.registerAction('a', function(status) {
+            self.w.move(-2, status)
         })
     }
 
