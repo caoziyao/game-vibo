@@ -29,8 +29,92 @@
         <script src="scene/title/scene_title.js"></script>
         <script src="scene/title/pipes.js"></script>
         <script src="scene/title/bird.js"></script>
+
+        <!-- 配置文件  -->
+        <script src="config.js"></script>
     </head>
     <body>
         <canvas id="id-canvas" width="400" height="600"></canvas>
+
+        <div class="gua-control">
+            <!-- <div class="">
+                <label>
+                    <input class="gua-auto-slider" type="range" name=""
+                        value=""
+                        data-value="pip_space"
+                        >
+                    管子垂直间距: <span class="gua-label"></span>
+                </label>
+            </div> -->
+        </div>
+
+
+        <script>
+            var e = sel => document.querySelector(sel)
+
+            var es = sel => document.querySelectorAll(sel)
+
+            var bindAll = function (sel, eventName, callback) {
+                var elements = es(sel)
+                for (var i = 0; i < elements.length; i++) {
+                    var e = elements[i]
+                    e.addEventListener(eventName, callback)
+                }
+            }
+
+            var insertControls = function () {
+                var div = e('.gua-control')
+                var keys = Object.keys(config)
+                log('keys', keys)
+                for (var k of keys) {
+                    var item = config[k]
+                    var html = templateControl(k, item)
+                    div.insertAdjacentHTML('beforeend', html)
+
+                }
+
+            }
+
+            var templateControl = function (key, item) {
+                var t = `
+                    <div class="">
+                        <label>
+                            <input class="gua-auto-slider" type="range" name=""
+                                value="${item._comment}"
+                                data-value="config.${key}"
+                                max = 400
+                                min = 150
+                                >
+                            ${item._comment}: <span class="gua-label">${item.value}</span>
+                        </label>
+                    </div>
+                `
+                return t
+            }
+
+            var bindEvents = function () {
+                bindAll('.gua-auto-slider', 'input', function (event) {
+                    var target = event.target
+                    var bindVal = target.dataset.value
+                    var v = target.value
+                    eval(bindVal + '.value = ' + v)
+
+                    var label = target.closest('label').querySelector('.gua-label')
+                    label.innerText = v
+                })
+            }
+
+            var __main = function () {
+                // 生成配置 html 控件
+                insertControls()
+                // 绑定事件
+                bindEvents()
+
+            }
+
+            __main()
+        </script>
     </body>
+
+
 </html>

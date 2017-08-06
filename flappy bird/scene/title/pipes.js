@@ -30,7 +30,7 @@ class Pipes {
     resetPipesPostion(p1, p2) {
         p1.y = randonBetween(200, 400)
         // p2.y = p1.y + p1.h +
-        this.pipeSpace = randonBetween(80, 100)
+        this.pipeSpace = 80
         p2.y = - 280 + randonBetween(80, 200) // randonBetween(200, 400)
         log('p1.y ', p1.y, p2.y )
     }
@@ -43,7 +43,7 @@ class Pipes {
             }
         }
         //
-        
+
     }
 
     draw() {

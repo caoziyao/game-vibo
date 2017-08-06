@@ -1,6 +1,6 @@
 
 
-var __main = function() {
+var gameStart = function() {
     var images = {
         background: 'img/bg_day.png',
         bird0: 'img/bird0_0.png',
@@ -19,5 +19,5 @@ var __main = function() {
     })
 }
 window.onload = function(){
-    __main()
+    gameStart()
 }
