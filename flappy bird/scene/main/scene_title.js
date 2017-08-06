@@ -22,11 +22,20 @@ class SceneMain extends GuaScene {
         var game = this.game
         window.paused = false
         this.skipCount = 10
+        this.end = false
         // 分数
         var firstPipe = this.pipes.pipes[0]
         this.currentPipeX = firstPipe.x + firstPipe.ws
         // log('this.currentPipeX', this.currentPipeX)
 
+    }
+
+    gameOver() {
+
+        this.end = true
+        this.addElement(this.textGameOver)
+        this.addElement(this.restart)
+        this.addElement(this.share)
     }
 
     // 鼠标按键
@@ -37,22 +46,10 @@ class SceneMain extends GuaScene {
     }
 
     restartGame() {
-        // var game = this.game
-        // var s = SceneMain.new(game)
-        // // var s = SceneMain.new(g)
-        // game.runWithScene(s)
-
-        this.addBackground()
-        this.addPipes()
-        this.addLand()
-        this.addBird()
-        this.addScoresBord()
-
-        this.addGameOver()
-
-        this.setup()
-
-        this.setupInput()
+        var g = this.game
+        var s = SceneMain.new(g)
+        // var s = SceneMain.new(g)
+        g.replaceScene(s)
 
     }
 
@@ -167,9 +164,7 @@ class SceneMain extends GuaScene {
         for (var p of this.pipes.pipes) {
             if (this.bird.collide(p)) {
                 this.bird.kill()
-                this.addElement(this.textGameOver)
-                this.addElement(this.restart)
-                this.addElement(this.share)
+                this.gameOver()
                 // var s = SceneEnd.new(this.game)
                 // this.game.replaceScene(s)
                 window.paused = true

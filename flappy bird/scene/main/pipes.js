@@ -26,6 +26,18 @@ class Pipes {
         this.alive = true
     }
 
+    reset() {
+        for (var i = 0; i < this.columsOfPipe; i++) {
+            var index = i * 2
+            var p1 = this.pipes[index]
+            var p2 = this.pipes[index+1]
+            p1.x = 500 + i * this.pipeHorizontalSpace
+            p1.y = randonBetween(-200, 0)
+            this.resetPipesPostion(p1, p2)
+        }
+
+    }
+
     addPipes() {
         var game = this.game
         for (var i = 0; i < this.columsOfPipe; i++) {
