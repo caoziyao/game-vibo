@@ -18,7 +18,7 @@ class Pipes {
         this.pipes = []
 
         // 管子垂直间距
-        this.pipeVerticalSpace = 80
+        this.pipeVerticalSpace = 200
         // 管子横向间距
         this.pipeHorizontalSpace = 200
         // 管子数量
@@ -48,16 +48,19 @@ class Pipes {
         // p2.y = p1.y + p1.h +
         p2.x = p1.x
         p2.y = p1.y + p1.h + this.pipeVerticalSpace // randonBetween(200, 400)
-        log('p1.y ', p1.y, p2.y )
     }
 
     debug() {
         this.pipeVerticalSpace = config.pip_vertical_space.value
         this.pipeHorizontalSpace = config.pip_horizontal_space.value
-
     }
 
+
     update() {
+
+        if (window.paused) {
+            return
+        }
 
         for (var i = 0; i < this.columsOfPipe; i++) {
             var index = i * 2
@@ -68,6 +71,7 @@ class Pipes {
 
             if (p1.x < -p1.w) {
                    p1.x =  this.pipeHorizontalSpace * this.columsOfPipe
+                   this.resetPipesPostion(p1, p2)
              }
         }
 

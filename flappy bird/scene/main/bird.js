@@ -33,6 +33,7 @@ class Bird extends GuaAnimation {
     setup() {
         this.rotation = 0
         this.animationName = 'idle'
+
         this.image = {}
         this.image.texture = this.frames()[0]
         this.frameIndex = 0
@@ -47,13 +48,20 @@ class Bird extends GuaAnimation {
 
     }
 
+    kill() {
+        this.alive = false
+    }
+
     frames() {
         return this.animations[this.animationName]
     }
 
     jump() {
-        this.vy = -10
-        this.rotation = -45
+        if (this.alive) {
+            this.vy = -10
+            this.rotation = -45
+        }
+
     }
 
     setupInput() {
@@ -72,6 +80,8 @@ class Bird extends GuaAnimation {
     }
 
     draw() {
+
+
         var context = this.game.context
         context.save()
         var x = this.x + this.w / 2
@@ -94,6 +104,12 @@ class Bird extends GuaAnimation {
 
     changeAnimation(name) {
         this.animationName = name
+    }
+
+    collide(pipe) {
+
+        return rectIntersects(this, pipe) && rectIntersects(pipe, this)
+
     }
 
     update() {

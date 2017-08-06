@@ -79,7 +79,7 @@ class Game {
     }
 
     __start(scene) {
-        log('start game')
+    //    log('start game')
         this.runCallback(this)
     }
 
@@ -121,7 +121,7 @@ class Game {
                 g.images[name] = img
                 // 所有图片都成功载入之后, 调用 run
                 loads.push(1)
-                log('load images', g.images)
+                //log('load images', g.images)
                 if (loads.length == names.length) {
                     g.__start()
                 }
