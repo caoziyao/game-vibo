@@ -1,6 +1,16 @@
 
 var e = sel => document.querySelector(sel)
 
+var es = sel => document.querySelectorAll(sel)
+
+var bindAll = function (sel, eventName, callback) {
+    var elements = es(sel)
+    for (var i = 0; i < elements.length; i++) {
+        var e = elements[i]
+        e.addEventListener(eventName, callback)
+    }
+}
+
 var log = console.log.bind(console)
 
 
