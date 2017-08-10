@@ -6,10 +6,19 @@ class SceneEnemy {
 
         this.setUp()
 
+
+
     }
 
     setUp() {
         var game = this.game
+
+        var lifeType = {
+            'enemy1': 1,
+            'enemy2': 2,
+            'enemy3': 3,
+        }
+
         var type = randonBetween(1, 2)
         var name = 'enemy' + type
         this.image = GuaImage.new(game, name)
@@ -19,6 +28,10 @@ class SceneEnemy {
         this.x = randonBetween(0, 350)
         this.y = randonBetween(0, 200)
         this.speed = randonBetween(4, 13)
+
+        // 敌人生命值
+        this.life = lifeType[name]
+        //log('this.life', this.life)
 
         // 敌人消失
         this.alive = true
@@ -30,13 +43,16 @@ class SceneEnemy {
     }
 
 
-
     move() {
         this.y += this.speed
     }
 
     kill() {
-        this.alive = false
+        this.life--
+        if (this.life == 0) {
+            this.alive = false
+        }
+
     }
 
     hasPoint(x, y) {

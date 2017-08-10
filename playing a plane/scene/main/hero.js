@@ -67,8 +67,6 @@ class SceneHero {
         if (this.cooldown > 0) {
             this.cooldown--
         }
-
-
     }
 
     draw() {
@@ -97,6 +95,9 @@ class SceneHero {
 
     //
     removeBullet(index) {
-        this.bullets.splice(index,1)
+        // var b = this.bullets[i]
+        // this.scene.deleteElement(b)
+
+        //this.bullets.splice(index,1)
     }
 }

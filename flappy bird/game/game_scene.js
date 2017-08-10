@@ -11,14 +11,9 @@ class GuaScene {
     }
 
     draw() {
-
         for (var i = 0; i < this.elements.length; i++) {
             var e = this.elements[i]
-            //if (e.alive) {
-                //this.game.drawImage(e)
                 e.draw()
-            //}
-
         }
     }
     update() {

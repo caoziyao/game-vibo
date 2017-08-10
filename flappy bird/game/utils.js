@@ -20,6 +20,17 @@ const randonBetween = function(start, end) {
 }
 
 
+// console.log(bar)
+var bar = 1
+function test() {
+    console.log(bar)
+    var bar = 2
+    console.log(bar)
+}
+// console.log(bar)
+test()
+
+
 // 碰撞检测
 var rectIntersects = function(a, b) {
     // var o = a;

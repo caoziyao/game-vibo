@@ -35,6 +35,11 @@ class SceneMain extends GuaScene {
         this.enemys = es
 
     }
+
+    deleteElement(element) {
+
+    }
+
     // 初始化
     setup() {
         var game = this.game
@@ -49,6 +54,14 @@ class SceneMain extends GuaScene {
         super.draw()
     }
 
+    // 子弹碰撞飞机：
+    /*
+    1. 检测碰撞
+    2. 子弹消失, 消失就是 scene.deleteElement(下标)
+    3. 飞机替换爆炸
+    4. 飞机消失， 消失就是 scene.deleteElement(下标)
+    */
+
     update() {
         super.update()
         var game = this.game
@@ -60,9 +73,10 @@ class SceneMain extends GuaScene {
             for (var j = 0; j < this.enemys.length; j++) {
                 var e = this.enemys[j]
                 if (b.collide(e)) {
-                    b.kill()
+                    //b.kill()
                     this.hero.removeBullet(i)
                     e.killing()
+                    // this.deleteElement(e)
                 }
 
             }
