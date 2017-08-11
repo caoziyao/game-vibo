@@ -15,6 +15,10 @@ var __main = function () {
         goomba: 'img/Goomba.gif',
         goomba_stomp: 'img/Goomba - Grey - Stomp.gif',
         green_koopa_troopa: 'img/Green Koopa Troopa.gif',
+        bush_double: 'img/Bush - Double.gif',
+        bush_sigle: 'img/Bush - Single.gif',
+        bush_triple: 'img/Bush - Triple.gif',
+        pipe: 'img/Pipe.gif',
 
 
 
