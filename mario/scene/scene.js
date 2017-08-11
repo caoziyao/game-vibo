@@ -1,11 +1,21 @@
-class SceneMain {
-    constructor(game) {
-        this.game = game
-        this.bg = game.textureByName('background')
-        this.mario = Mario.new(game)
-        this.bricks = Bricks.new(game)
+class ScenesMain extends GuaScene {
+    constructor(game, positionX) {
+        super(game)
+        // this.game = game
+        this.scenes = []
 
+        this.sceneIdex = 0
+
+        this.mario = Mario.new(game)
         this.setupInput()
+
+        this.scenes[0] = Levels0.new(game, 0)
+        for (var i = 1; i < 16; i++) {
+            this.scenes[i] = Levels0.new(game, 600)
+        }
+
+        this.addElement(this.mario)
+
     }
 
     setupInput() {
@@ -24,15 +34,75 @@ class SceneMain {
         game.registerAction('j', function(event){
             self.mario.jump(event)
         })
-        // game.registerAction('s', function(){
-        //     self.y += 2
-        //     console.log('this',game, self.x)
-        // })
     }
 
     update() {
-        this.mario.update()
-        this.bricks.update()
+        var game = this.game
+        super.update()
+
+
+        // 小动物碰撞
+        for (var i = 0; i < this.scenes[this.sceneIdex].enemys.enemys.length; i++) {
+            var o = this.scenes[this.sceneIdex].enemys
+            var e = o.enemys[i]
+            if (o.collide(this.mario, e)) {
+                var image =  game.textureByName('goomba_stomp')
+                e.texture = image
+                e.y = 320
+                log('coooo')
+            }
+        }
+
+        for (var i = 0; i < this.scenes[this.sceneIdex+1].enemys.enemys.length; i++) {
+            var o = this.scenes[this.sceneIdex+1].enemys
+            var e = o.enemys[i]
+            if (o.collide(this.mario, e)) {
+                var image =  game.textureByName('goomba_stomp')
+                e.texture = image
+                e.y = 320
+                log('kkkk')
+            }
+        }
+
+        this.scenes[this.sceneIdex].update()
+        this.scenes[this.sceneIdex+1].update()
+
+
+        if (this.mario.x > 300) {
+            // log('this.sceneIdex', this.sceneIdex)
+            if (this.sceneIdex < this.scenes.length - 2) {
+                var step = this.mario.x - 300
+                this.mario.x = 300
+                this.scenes[this.sceneIdex+1].move(step)
+                this.scenes[this.sceneIdex].move(step)
+
+            } else {
+                this.scenes[this.sceneIdex+1].levelMoveStep = 0
+                this.scenes[this.sceneIdex].levelMoveStep = 0
+            }
+
+
+        }
+
+        if (this.mario.x < 0) {
+            this.mario.x = 0
+        }
+
+        if (this.mario.x > 600 - this.mario.texture.width) {
+        //    log('this.mario.x', this.mario.x)
+            this.mario.x = 600 - this.mario.texture.width
+        }
+
+        var baseX = this.scenes[this.sceneIdex].baseX
+        if (baseX <= -600) {
+            log('this.sceneIdex', this.sceneIdex)
+            // this.scenes[this.sceneIdex] = this.scenes[this.sceneIdex+1]
+            // this.scenes[this.sceneIdex+1] = this.scenes[this.sceneIdex+2]
+            if (this.sceneIdex < this.scenes.length - 2) {
+                this.sceneIdex = this.sceneIdex + 1
+            }
+
+        }
     }
 
     static new(...args) {
@@ -40,13 +110,10 @@ class SceneMain {
     }
 
     draw() {
+        this.scenes[this.sceneIdex].draw()
+        this.scenes[this.sceneIdex+1].draw()
+        super.draw()
         var g = this.game
-
-        // console.log('bg', bg)
-        g.context.drawImage(this.bg, 0, 0, 600, 400)
-
-        this.mario.draw()
-        this.bricks.draw()
 
     }
 }

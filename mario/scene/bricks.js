@@ -3,12 +3,13 @@ class Bricks{
         this.game = game
         this.bricks = []
 
+        var brickY = randonBetween(50, 200)
         for (var i = 0; i < 4; i++) {
-            var imge = {}
-            imge.texture = game.textureByName('bricks')
-            imge.x = 400 + (i * imge.texture.width)
-            imge.y = 200
-            this.bricks.push(imge)
+            var b = {}
+            b.texture = game.textureByName('bricks')
+            b.x = 400 + (i * b.texture.width)
+            b.y = brickY
+            this.bricks.push(b)
         }
     }
 

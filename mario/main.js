@@ -11,11 +11,17 @@ var __main = function () {
         mario_walk3: 'img/mario_walk/Mario - Walk3.gif',
         mario_jump: 'img/Mario - Jump.gif',
         bricks: 'img/Bricks.gif',
+        cloud_double: 'img/Cloud - Double.gif',
+        goomba: 'img/Goomba.gif',
+        goomba_stomp: 'img/Goomba - Grey - Stomp.gif',
+        green_koopa_troopa: 'img/Green Koopa Troopa.gif',
+
+
 
     }
 
     var game = Game.instance(30, images, function () {
-        var s = SceneMain.new(game)
+        var s = ScenesMain.new(game, 0)
         game.runWithScene(s)
     })
 }

@@ -4,6 +4,7 @@ class Game {
         this.fps = fps
         this.runCallback = callback
         this.images = images
+        this.scene = null
         // 事件动作
         this.actions = {}
         // 是否按下键，如果按下则为 True
@@ -73,7 +74,7 @@ class Game {
                 g.actions[key](event)
             } else if (status == false) {
                 g.actions[key](event)
-                log('g', g)
+                // log('g', g)
                 var d = {
                     status: null,
                     event: event,

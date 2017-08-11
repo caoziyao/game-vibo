@@ -5,12 +5,12 @@ class Mario extends Animation{
         this.texture = game.textureByName('mario')
         this.x = 200
         this.y = 303
-        this.speed = 2
+        this.speed = 1
         this.w = this.texture.width
         this.h = this.texture.height
 
         // 重量
-        this.gy = 1
+        this.gy = 1.5
         this.vy = 0
         this.jumpFlag = false
 
@@ -44,7 +44,7 @@ class Mario extends Animation{
 
         // 更新重力
         this.y += this.vy
-        this.vy += this.gy * 0.2
+        this.vy += this.gy * 0.1
         if (this.y > 303) {
             this.vy = 0
             this.y = 303
@@ -55,11 +55,12 @@ class Mario extends Animation{
         // 更新动画
         this.frameCount--
         if (this.frameCount == 0) {
-            this.frameCount = 5
+            this.frameCount = 15
             this.frameIndex = (this.frameIndex + 1) % this.animations[this.currentAnimationName].length
             this.texture = this.animations[this.currentAnimationName][this.frameIndex]
-
         }
+
+
 
     }
 
@@ -113,8 +114,8 @@ class Mario extends Animation{
 
     moveRight(event) {
         this.flipX = 0
-        var type = event.type
 
+        var type = event.type
         this.changeSportAnimation(type)
         this.x += this.speed
     }
