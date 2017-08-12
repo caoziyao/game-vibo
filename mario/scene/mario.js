@@ -60,7 +60,11 @@ class Mario extends Animation{
             this.texture = this.animations[this.currentAnimationName][this.frameIndex]
         }
 
-
+        // mario
+        this.x = this.x > 0 ? this.x : 0
+        if (this.x > 600 - this.texture.width) {
+            this.x = 600 - this.texture.width
+        }
 
     }
 

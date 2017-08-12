@@ -12,6 +12,8 @@ class Game {
 
         this.canvas = document.querySelector('#id-canvas')
         this.context = this.canvas.getContext('2d')
+        this.width = this.canvas.width
+        this.height = this.canvas.height
 
         // events
         window.addEventListener('keydown', event => {

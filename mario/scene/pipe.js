@@ -2,10 +2,6 @@ class Pipe{
     constructor(game) {
         this.game = game
         this.pips = []
-
-        // this.texture = game.textureByName('pipe')
-        // this.x = randonBetween(100, 500)
-        // this.y = 273
     }
 
     static new(...args) {
@@ -13,8 +9,6 @@ class Pipe{
     }
 
     moveScene(step) {
-        // var step = this.game.scene.len this.levelMoveStep
-        // this.x -= step
         for (var i = 0; i < this.pips.length; i++) {
             var b = this.pips[i]
             // log('b', b)

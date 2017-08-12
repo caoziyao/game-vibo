@@ -2,15 +2,21 @@ class ScenesMain extends GuaScene {
     constructor(game, positionX) {
         super(game)
         // this.game = game
+        this.h = this.game.height
+        this.w = this.game.width
+
         this.scenes = []
-
         this.sceneIdex = 0
-
+        this.endFrame = false
         this.mario = Mario.new(game)
         this.setupInput()
         this.renderFromCofig()
         this.addElement(this.mario)
         // this.currentScene =
+    }
+
+    static new(...args) {
+        return new this(...args)
     }
 
     setupInput() {
@@ -39,29 +45,22 @@ class ScenesMain extends GuaScene {
         return this.scenes[this.sceneIdex+1]
     }
 
-    // endFrame() {
-    //
-    // }
 
     renderFromCofig() {
         var game = this.game
         var frames = Object.keys(config)
-        // log('key', key)
         for (var i = 0; i < frames.length; i++) {
             var f = frames[i]
             var items = config[f]
             // log('items', items)
-            var baseX =  i == 0 ? 0 : 600;
+            var baseX =  i == 0 ? 0 : this.w;
             this.scenes[i] = Levels0.new(game, baseX)
             this.scenes[i].renderFromItems(f, items)
         }
     }
 
-    update() {
+    collideEvent() {
         var game = this.game
-        super.update()
-
-
         // 小动物碰撞
         for (var i = 0; i < this.currentFrame().enemys.enemys.length; i++) {
             var o = this.currentFrame().enemys
@@ -87,62 +86,51 @@ class ScenesMain extends GuaScene {
             }
         }
 
+    }
 
+    update() {
+        var game = this.game
+        super.update()
+
+        // 碰撞事件
+        this.collideEvent()
 
         this.currentFrame().update()
-        if (this.sceneIdex < this.scenes.length - 1) {
-            this.nextFrame().update()
-        }
+        this.endFrame || this.nextFrame().update()
+        // if (this.sceneIdex < this.scenes.length - 1) {
+        //     this.nextFrame().update()
+        // }
 
+        if (this.mario.x > this.w / 2) {
 
-
-        if (this.mario.x > 300) {
-
-            var step = this.mario.x - 300
-
+            var step = this.mario.x - this.w / 2
             if (this.sceneIdex < this.scenes.length - 1) {
                 this.currentFrame().moveScene(step)
                 this.nextFrame().moveScene(step)
-                this.mario.x = 300
+                this.mario.x = this.w / 2
             }  else {
                 this.currentFrame().moveScene(0)
             }
-
-
-
-        }
-
-        if (this.mario.x < 0) {
-            this.mario.x = 0
-        }
-
-        if (this.mario.x > 600 - this.mario.texture.width) {
-        //    log('this.mario.x', this.mario.x)
-            this.mario.x = 600 - this.mario.texture.width
         }
 
         var baseX = this.currentFrame().baseX
-        if (baseX <= -600) {
+        if (baseX <= -this.w) {
             // log('this.sceneIdex', this.sceneIdex)
-            // this.scenes[this.sceneIdex] = this.scenes[this.sceneIdex+1]
-            // this.scenes[this.sceneIdex+1] = this.scenes[this.sceneIdex+2]
             if (this.sceneIdex < this.scenes.length - 1) {
                 this.sceneIdex = this.sceneIdex + 1
             }
-            log('now .sceneIdex', this.sceneIdex)
+            if (this.sceneIdex == this.scenes.length - 1) {
+                this.endFrame = true
+            }
+            log('now .sceneIdex', this.sceneIdex, this.endFrame)
         }
     }
 
-    static new(...args) {
-        return new this(...args)
-    }
+
 
     draw() {
         this.currentFrame().draw()
-        if (this.sceneIdex < this.scenes.length - 1) {
-            this.nextFrame().draw()
-        }
-
+        this.endFrame || this.nextFrame().draw()
 
         super.draw()
         var g = this.game
