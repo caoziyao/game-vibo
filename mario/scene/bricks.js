@@ -8,19 +8,22 @@ class Bricks{
         return new this(...args)
     }
 
-    createElements(baseX, positions) {
+    createElements(baseX, items) {
         var game = this.game
         // var brickY = randonBetween(50, 200)
-        for (var i = 0; i < positions.length; i++) {
-            var p = positions[i]
-            var x = p[0]
-            var y = p[1]
+        for (var i = 0; i < items.length; i++) {
+            var item = items[i]
+            var num = item.number
+            var x = item.x
+            var y = item.y
+            for (var j = 0; j < num; j++) {
+                var b = {}
+                b.texture = game.textureByName('bricks')
+                b.x = baseX + x + (j * b.texture.width)
+                b.y = y
+                this.bricks.push(b)
+            }
 
-            var b = {}
-            b.texture = game.textureByName('bricks')
-            b.x = baseX + x
-            b.y = y
-            this.bricks.push(b)
         }
     }
 
@@ -31,9 +34,7 @@ class Bricks{
             b.x -= step
         }
         // var step = this.game.scene.len this.levelMoveStep
-
     }
-
 
     update() {
 

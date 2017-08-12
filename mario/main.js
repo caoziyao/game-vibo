@@ -19,9 +19,6 @@ var __main = function () {
         bush_sigle: 'img/Bush - Single.gif',
         bush_triple: 'img/Bush - Triple.gif',
         pipe: 'img/Pipe.gif',
-
-
-
     }
 
     var game = Game.instance(30, images, function () {

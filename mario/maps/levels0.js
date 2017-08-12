@@ -28,41 +28,33 @@ class Levels0 extends GuaScene{
 
 
         this.addElement(this.bg)
-        this.reduxFromCofig()
-        this.addElement(this.enemys)
+        // this.reduxFromCofig()
+
 
 
     }
 
-    reduxFromPostion(frame, element, positions) {
+    renderFromPostion(frame, element, item) {
         var game = this.game
         var cs = this.elementType[element]
         var e = cs.new(game)
-        e.createElements && e.createElements(this.baseX, positions)
+        e.createElements && e.createElements(this.baseX, item)
 
         this.addElement(e)
     }
 
-    reduxFromItems(frame, items) {
+    renderFromItems(frame, items) {
         var es = Object.keys(items)
         for (var i = 0; i < es.length; i++) {
             var e = es[i]
-            var positions = items[e]
+            var item = items[e]
             // log('es', e)
-            this.reduxFromPostion(frame, e, positions)
+            this.renderFromPostion(frame, e, item)
         }
+
+        this.addElement(this.enemys)
     }
 
-    reduxFromCofig() {
-        var frames = Object.keys(config)
-        // log('key', key)
-        for (var i = 0; i < frames.length; i++) {
-            var f = frames[i]
-            var items = config[f]
-            // log('items', items)
-            this.reduxFromItems(f, items)
-        }
-    }
 
     moveScene(step) {
 
