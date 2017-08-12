@@ -6,6 +6,7 @@ class Levels0 extends GuaScene{
         this.clouds = Clouds.new(game)
         this.enemys = Enemys.new(game)
         this.bush = Bush.new(game)
+        this.pipe = Pipe.new(game)
         this.levelMoveStep = 0
 
         this.baseX = positionX
@@ -14,6 +15,7 @@ class Levels0 extends GuaScene{
         this.bg.y = 0
 
         this.clouds.x = this.baseX + this.clouds.x
+        this.pipe.x = this.baseX + this.pipe.x
 
         for (var i = 0; i < this.enemys.enemys.length; i++) {
             var b = this.enemys.enemys[i]
@@ -36,6 +38,7 @@ class Levels0 extends GuaScene{
 
         this.addElement(this.bg)
         this.addElement(this.bush)
+        this.addElement(this.pipe)
         this.addElement(this.bricks)
         this.addElement(this.clouds)
         this.addElement(this.enemys)
@@ -51,6 +54,8 @@ class Levels0 extends GuaScene{
 
         this.bg.x = this.baseX
         this.clouds.x -= step
+
+        this.pipe.x -= step
 
         // log('basex', this.bg.x)
         for (var i = 0; i < this.bricks.bricks.length; i++) {
