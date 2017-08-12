@@ -10,24 +10,33 @@ class Bush{
             'e2': 'bush_triple',
         }
 
-        for (var i = 0; i < 3; i++) {
-            var b = {}
-            var key = 'e' + randonBetween(0, 2)
-            var name = this.bushType[key]
-            log(name)
-            b.texture = game.textureByName(name)
-            b.x = (i * randonBetween(50, 350))
-            b.w = b.texture.width
-            b.h = b.texture.height
-
-            b.y = 305
-
-            this.bush.push(b)
-        }
     }
 
     static new(...args) {
         return new this(...args)
+    }
+
+    moveScene(step) {
+        for (var i = 0; i < this.bush.length; i++) {
+            var b = this.bush[i]
+            b.x -= step
+        }
+    }
+
+    createElements(baseX, positions) {
+        var game = this.game
+        // var brickY = randonBetween(50, 200)
+        for (var i = 0; i < positions.length; i++) {
+            var p = positions[i]
+            var x = p[0]
+            var y = p[1]
+
+            var b = {}
+            b.texture = game.textureByName('bush_sigle')
+            b.x = baseX + x
+            b.y = y
+            this.bush.push(b)
+        }
     }
 
     move() {

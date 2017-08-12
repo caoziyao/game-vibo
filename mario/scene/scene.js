@@ -10,7 +10,7 @@ class ScenesMain extends GuaScene {
         this.setupInput()
 
         this.scenes[0] = Levels0.new(game, 0)
-        for (var i = 1; i < 16; i++) {
+        for (var i = 1; i < 5; i++) {
             this.scenes[i] = Levels0.new(game, 600)
         }
 
@@ -73,8 +73,8 @@ class ScenesMain extends GuaScene {
             if (this.sceneIdex < this.scenes.length - 2) {
                 var step = this.mario.x - 300
                 this.mario.x = 300
-                this.scenes[this.sceneIdex+1].move(step)
-                this.scenes[this.sceneIdex].move(step)
+                this.scenes[this.sceneIdex+1].moveScene(step)
+                this.scenes[this.sceneIdex].moveScene(step)
 
             } else {
                 this.scenes[this.sceneIdex+1].levelMoveStep = 0

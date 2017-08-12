@@ -12,7 +12,8 @@ class Background{
         return new this(...args)
     }
 
-    move(step) {
+    moveScene(step) {
+        // var step = this.game.scene.len this.levelMoveStep
         this.x -= step
     }
 

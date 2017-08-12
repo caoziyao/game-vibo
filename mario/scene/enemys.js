@@ -34,6 +34,15 @@ class Enemys{
         return new this(...args)
     }
 
+    moveScene(step) {
+
+        for (var i = 0; i < this.enemys.length; i++) {
+            var e = this.enemys[i]
+            // log('b', b)
+            e.x -= step
+        }
+    }
+
     move() {
 
     }

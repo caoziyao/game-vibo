@@ -2,90 +2,79 @@ class Levels0 extends GuaScene{
     constructor(game, positionX) {
         super(game)
         this.bg = Background.new(game)
-        this.bricks = Bricks.new(game)
-        this.clouds = Clouds.new(game)
+        // this.bricks = Bricks.new(game)
         this.enemys = Enemys.new(game)
-        this.bush = Bush.new(game)
-        this.pipe = Pipe.new(game)
+        // this.bush = Bush.new(game)
         this.levelMoveStep = 0
-
         this.baseX = positionX
+
+        this.elementType = {
+            bg: Background,
+            pipe: Pipe,
+            clound: Clouds,
+            bricks: Bricks,
+            enemys: Enemys,
+            bush: Bush,
+        }
+
 
         this.bg.x = this.baseX
         this.bg.y = 0
-
-        this.clouds.x = this.baseX + this.clouds.x
-        this.pipe.x = this.baseX + this.pipe.x
-
         for (var i = 0; i < this.enemys.enemys.length; i++) {
             var b = this.enemys.enemys[i]
             // log('b', b)
             b.x =  this.baseX +  b.x
         }
 
-        for (var i = 0; i < this.bush.bush.length; i++) {
-            var b = this.bush.bush[i]
-            // log('b', b)
-            b.x =  this.baseX +  b.x
-        }
-
-
-        for (var i = 0; i < this.bricks.bricks.length; i++) {
-            var b = this.bricks.bricks[i]
-            // log('b', b)
-            b.x =  this.baseX + b.x
-        }
 
         this.addElement(this.bg)
-        this.addElement(this.bush)
-        this.addElement(this.pipe)
-        this.addElement(this.bricks)
-        this.addElement(this.clouds)
+        this.reduxFromCofig()
         this.addElement(this.enemys)
 
 
     }
 
-    move(step) {
-        // this.bg.move(step)
+    reduxFromPostion(frame, element, positions) {
+        var game = this.game
+        var cs = this.elementType[element]
+        var e = cs.new(game)
+        e.createElements && e.createElements(this.baseX, positions)
+
+        this.addElement(e)
+    }
+
+    reduxFromItems(frame, items) {
+        var es = Object.keys(items)
+        for (var i = 0; i < es.length; i++) {
+            var e = es[i]
+            var positions = items[e]
+            // log('es', e)
+            this.reduxFromPostion(frame, e, positions)
+        }
+    }
+
+    reduxFromCofig() {
+        var frames = Object.keys(config)
+        // log('key', key)
+        for (var i = 0; i < frames.length; i++) {
+            var f = frames[i]
+            var items = config[f]
+            // log('items', items)
+            this.reduxFromItems(f, items)
+        }
+    }
+
+    moveScene(step) {
+
+        super.moveScene(step)
         this.baseX -= step
         this.levelMoveStep = step
 
-
-        this.bg.x = this.baseX
-        this.clouds.x -= step
-
-        this.pipe.x -= step
-
-        // log('basex', this.bg.x)
-        for (var i = 0; i < this.bricks.bricks.length; i++) {
-            var b = this.bricks.bricks[i]
-            // log('b', b)
-            // log('b.x', b.x)
-            b.x -= step
-        }
-
-        // log('basex', this.bg.x)
-        for (var i = 0; i < this.bush.bush.length; i++) {
-            var b = this.bush.bush[i]
-            // log('b', b)
-            // log('b.x', b.x)
-            b.x -= step
-        }
-
-
-        for (var i = 0; i < this.enemys.enemys.length; i++) {
-            var e = this.enemys.enemys[i]
-            // log('b', b)
-            e.x -= step
-        }
     }
 
 
     update() {
         super.update()
-
-
     }
 
     static new(...args) {
