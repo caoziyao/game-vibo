@@ -13,13 +13,19 @@ class Block{
         this.lifes = p[2] || 1
         this.w = this.img.w
         this.h = this.img.h
+
+        log('xxxxx', this.x, this.y)
     }
 
     static new(...args) {
-        this.i = this.i || new this(...args)
+        this.i =  new this(...args)
         return this.i
     }
-
+    hasPoint(x, y) {
+        var xIn = x >= this.x && x <= this.x + this.w
+        var yIn = y >= this.y && y <= this.y + this.h
+        return xIn && yIn
+    }
     collide(b) {
         return this.alive && (rectIntersects(this, b) || rectIntersects(b, this))
     }

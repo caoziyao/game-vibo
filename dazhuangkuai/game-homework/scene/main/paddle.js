@@ -36,7 +36,7 @@ class Paddle{
         return x >= x1 && x <= x2
     }
     collide(ball) {
-        log('this', this)
+        // log('this', this)
         var a = this
         var b = ball
         if (this.aInb(a.x, b.x, b.x + b.w) || this.aInb(b.x, a.x, a.x + a.w)) {

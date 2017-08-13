@@ -7,8 +7,27 @@ var loadLevel = function(game, n) {
         var b = Block.new(game, p)
         blocks.push(b)
     }
+
     return blocks
 }
+
+var loadLocalStorage = function (game) {
+
+    // localStorage.removeItem('blocks')
+    var ps = localStorage.getItem('blocks')
+    var ps = ps != null ? JSON.parse(ps) : []
+
+    var blocks = []
+    for (var i = 0; i < ps.length; i++) {
+        var p = ps[i]
+        var b = Block.new(game, p)
+        blocks.push(b)
+    }
+
+    return blocks
+
+}
+
 
 var enableDebugMode = function(game, enable) {
     if(!enable) {
