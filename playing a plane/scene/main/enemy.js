@@ -27,7 +27,7 @@ class SceneEnemy {
         // 图片坐标
         this.x = randonBetween(0, 350)
         this.y = randonBetween(0, 200)
-        this.speed = randonBetween(4, 13)
+        this.speed = config.enemy_speed.value + randonBetween(0, 4)
 
         // 敌人生命值
         this.life = lifeType[name]
@@ -49,9 +49,10 @@ class SceneEnemy {
 
     kill() {
         this.life--
-        if (this.life == 0) {
-            this.alive = false
-        }
+        this.alive = false
+        // if (this.life == 0) {
+        //     this.alive = false
+        // }
 
     }
 
@@ -63,7 +64,8 @@ class SceneEnemy {
 
     killing() {
         var self = this
-        this.image = GuaImage.new(self.game,'enemy_down')
+        self.alive = false
+        self.image = GuaImage.new(self.game,'enemy_down')
         setTimeout(function () {
             self.kill()
         }, 150)

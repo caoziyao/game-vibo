@@ -16,9 +16,11 @@ class SceneHero {
         // 图片坐标
         this.x = 150
         this.y = 450
-        this.speed = 10
+        this.speed = config.hero_speed.value
         // 子弹冷却时间
         this.cooldown = 0
+
+        this.alive = true
     }
 
     static new(...args) {
@@ -69,13 +71,25 @@ class SceneHero {
         }
     }
 
+    collide(enemy) {
+        log('enemy.alive', enemy.alive)
+        return enemy.alive && (rectIntersects(this, enemy) || rectIntersects(enemy, this))
+    }
+
+    kill() {
+        this.alive = false
+        var s = SceneEnd.new(this.game)
+        this.game.replaceScene(s)
+
+    }
+
     draw() {
         this.game.drawImage(this)
     }
 
     debug() {
         // 动态速度
-        this.speed = config.hero_speed
+        this.speed = config.hero_speed.value
     }
 
     // 发射子弹

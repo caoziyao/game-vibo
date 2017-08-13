@@ -45,7 +45,7 @@ class SceneMain extends GuaScene {
         var game = this.game
         this.numberOfEnemys = 8
         // 发射子弹 按下空格键
-        game.registerAction(' ',  () =>{
+        game.registerAction('j',  () =>{
             this.hero.fire()
         })
     }
@@ -54,13 +54,30 @@ class SceneMain extends GuaScene {
         super.draw()
     }
 
-    // 子弹碰撞飞机：
-    /*
-    1. 检测碰撞
-    2. 子弹消失, 消失就是 scene.deleteElement(下标)
-    3. 飞机替换爆炸
-    4. 飞机消失， 消失就是 scene.deleteElement(下标)
-    */
+    bulletCollid(bullet, index) {
+        var b = bullet
+        for (var j = 0; j < this.enemys.length; j++) {
+            var e = this.enemys[j]
+            if (b.collide(e)) {
+                //b.kill()
+                this.hero.removeBullet(index)
+                e.killing()
+                // this.deleteElement(e)
+            }
+        }
+    }
+
+    heroCollid() {
+        for (var j = 0; j < this.enemys.length; j++) {
+            var e = this.enemys[j]
+            if (this.hero.collide(e)) {
+                //b.kill()
+                this.hero.kill()
+                // this.deleteElement(e)
+            }
+        }
+
+    }
 
     update() {
         super.update()
@@ -69,20 +86,10 @@ class SceneMain extends GuaScene {
         // 子弹碰撞
         for (var i = 0; i < this.hero.bullets.length; i++) {
             var b = this.hero.bullets[i]
-
-            for (var j = 0; j < this.enemys.length; j++) {
-                var e = this.enemys[j]
-                if (b.collide(e)) {
-                    //b.kill()
-                    this.hero.removeBullet(i)
-                    e.killing()
-                    // this.deleteElement(e)
-                }
-
-            }
-
+            this.bulletCollid(b)
         }
-
+        // 敌机碰撞
+        this.heroCollid()
     }
 
 }

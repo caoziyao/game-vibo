@@ -1,6 +1,16 @@
 
 var e = sel => document.querySelector(sel)
 
+var es = sel => document.querySelectorAll(sel)
+
+var bindAll = function (sel, eventName, callback) {
+    var elements = es(sel)
+    for (var i = 0; i < elements.length; i++) {
+        var e = elements[i]
+        e.addEventListener(eventName, callback)
+    }
+}
+
 var log = console.log.bind(console)
 
 
@@ -13,8 +23,8 @@ const randonBetween = function(start, end) {
 // 碰撞检测
 var rectIntersects = function(a, b) {
     var o = a;
-    if (b.y > o.y && b.y < o.y + o.image.h) {
-        if (b.x > o.x && b.x < o.x + o.image.w) {
+    if (b.y > o.y && b.y < o.y + o.h) {
+        if (b.x > o.x && b.x < o.x + o.w) {
             return true
         }
     }

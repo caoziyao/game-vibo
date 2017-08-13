@@ -8,7 +8,7 @@ class SceneBullet {
         // 图片坐标
         this.x = 165
         this.y = 410
-        this.speed = 10
+        this.speed = config.bullet_speed.value
         // 发射子弹
         this.fired = false
         // 子弹消失
@@ -34,7 +34,7 @@ class SceneBullet {
     }
 
     debug() {
-        this.speed = config.bullet_speed
+        this.speed = config.bullet_speed.value
     }
 
     collide(enemy) {
