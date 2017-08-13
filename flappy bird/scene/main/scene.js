@@ -61,7 +61,6 @@ class SceneMain extends GuaScene {
             var y = event.offsetY
             // 检查是否点中了 ball
             if (self.hasPoint(x, y)) {
-                // 设置拖拽状态
                 // enableDrag = true
                 log('restaret')
                 self.restartGame()

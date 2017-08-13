@@ -68,6 +68,7 @@ var __main = function() {
         font_7: 'img/font/font_7.png',
         font_8: 'img/font/font_8.png',
         font_9: 'img/font/font_9.png',
+        tutorial: 'img/tutorial.png',
     }
 
     // 生成配置 html 控件
@@ -77,7 +78,7 @@ var __main = function() {
 
 
     var game = Game.instance(30, images, function(g){
-        var s = SceneMain.new(g)
+        var s = SceneTitle.new(g)
         // var s = SceneMain.new(g)
         g.runWithScene(s)
 
