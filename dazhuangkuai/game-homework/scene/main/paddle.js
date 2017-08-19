@@ -3,8 +3,8 @@ class Paddle{
         this.game = game
         this.img = game.imageByName('paddle')
         this.image = this.img.image
-        this.x = 100
-        this.y = 250
+        this.x = 400
+        this.y = 450
         this.speed = 15
         this.w = this.img.w
         this.h = this.img.h
@@ -19,8 +19,8 @@ class Paddle{
         if (x < 0) {
             x = 0
         }
-        if (x > 400 - this.w) {
-            x = 400 - this.w
+        if (x > 800 - this.w) {
+            x = 800 - this.w
         }
         this.x = x
     }

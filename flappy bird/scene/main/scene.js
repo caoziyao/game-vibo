@@ -144,6 +144,29 @@ class SceneMain extends GuaScene {
         // this.game.context.drawImage(this.background, 0, 0, 400, 600)
         // this.game.context.fillText('按 k 开始游戏', 100, 190)
     }
+    updateScore() {
+        var game = this.game
+        var birdX = this.bird.x
+
+        for (var i = 0; i < this.pipes.columsOfPipe; i++) {
+            var index = i * 2
+            var p1 = this.pipes.pipes[index]
+            var p2 = this.pipes.pipes[index+1]
+
+            if (birdX > p1.x && birdX < p1.x + p1.w) {
+                // log('this.currentPipeX', this.currentPipeX, this.bird.x)
+                this.currentPipeX = true
+                this.currentPipe = p1
+            }
+        }
+
+        if (this.currentPipeX && birdX >= this.currentPipe.x + this.currentPipe.w) {
+            this.currentPipeX = false
+            this.scores.scores += 1
+            log('scores', this.scores.scores)
+        }
+    }
+
 
     update() {
 
@@ -167,32 +190,11 @@ class SceneMain extends GuaScene {
                 // var s = SceneEnd.new(this.game)
                 // this.game.replaceScene(s)
                 window.paused = true
-
             }
         }
 
         // 分数
-        var birdX = this.bird.x
-
-        for (var i = 0; i < this.pipes.columsOfPipe; i++) {
-            var index = i * 2
-            var p1 = this.pipes.pipes[index]
-            var p2 = this.pipes.pipes[index+1]
-
-            if (birdX > p1.x && birdX < p1.x + p1.w) {
-                // log('this.currentPipeX', this.currentPipeX, this.bird.x)
-                this.currentPipeX = true
-
-                this.currentPipe = p1
-            }
-        }
-
-        if (this.currentPipeX && birdX >= this.currentPipe.x + this.currentPipe.w) {
-            this.currentPipeX = false
-            this.scores.scores += 1
-            log('scores', this.scores.scores)
-        }
-
+        this.updateScore()
 
     }
 

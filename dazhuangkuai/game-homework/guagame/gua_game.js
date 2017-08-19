@@ -5,6 +5,8 @@ class GuaGame {
         this.images = images
         this.runCallback = runCallback
         //
+        this.w = 800
+        this.h = 600
         this.scene = null
         this.actions = {}
         this.keydowns = {}

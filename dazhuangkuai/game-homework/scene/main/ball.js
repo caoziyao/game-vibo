@@ -3,8 +3,8 @@ class Ball{
         this.game = game
         this.img = game.imageByName('ball')
         this.image = this.img.image
-        this.x = 100
-        this.y = 200
+        this.x = 300
+        this.y = 300
         this.speedX = 5
         this.speedY = 5
         this.fired = false
@@ -23,10 +23,10 @@ class Ball{
     move() {
         if (this.fired) {
             // log('move')
-            if (this.x < 0 || this.x > 400) {
+            if (this.x < 0 || this.x > 800) {
                 this.speedX = -this.speedX
             }
-            if (this.y < 0 || this.y > 300) {
+            if (this.y < 0 || this.y > 600) {
                 this.speedY = -this.speedY
             }
             // move

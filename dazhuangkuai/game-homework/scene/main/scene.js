@@ -3,13 +3,14 @@ class Scene{
         this.game = game
         this.paddle = Paddle.new(game)
         this.ball = Ball.new(game)
-        this.enableEdit = false
 
         this.score = 0
 
         // this.blocks = loadLevel(game, 1)
+        this.bg = game.imageByName('background');
         this.blocks = loadLocalStorage(game)
 
+        this.setup()
         this.setupInput()
     }
     static new(...args) {
@@ -17,15 +18,19 @@ class Scene{
         return this.i
     }
 
+    setup() {
+
+    }
+
     draw() {
         // draw 背景
         var self = this
         var game = this.game
-        game.context.fillStyle = "#554"
-        game.context.fillRect(0, 0, 400, 300)
+        // game.context.fillStyle = "#554"
+        // game.context.fillRect(0, 0, 400, 300)
         // draw
-        game.drawImage(self.paddle)
-        game.drawImage(self.ball)
+
+        this.game.context.drawImage(this.bg.image, 0, 0, 800, 600);
         // draw blocks
         for (var i = 0; i < self.blocks.length; i++) {
             var block = self.blocks[i]
@@ -34,7 +39,13 @@ class Scene{
             }
         }
         // draw labels
+        game.context.font = "16px serif";
+        //2. 使用`fillStyle`设置字体颜色。
+        game.context.fillStyle = "#ffffff";
         game.context.fillText('分数: ' + self.score, 10, 290)
+
+        game.drawImage(self.paddle)
+        game.drawImage(self.ball)
     }
 
     update() {
@@ -76,19 +87,6 @@ class Scene{
         return ps
     }
 
-    editBlock(positon) {
-        var game = this.game
-        var p = positon
-        var ps = this.loadLocalPosition()
-
-        var block =  Block.new(game, p)
-        this.blocks.push(block)
-
-        // 保存 localStorage
-        ps.push(p)
-        var s = JSON.stringify(ps)
-        localStorage.setItem('blocks', s)
-    }
 
     setupInput() {
         // mouse event
@@ -119,9 +117,6 @@ class Scene{
                 // 设置拖拽状态
                 enableDrag = true
             }
-
-            var editPoistion = [x, y]
-            self.editBlock(editPoistion)
         })
         game.canvas.addEventListener('mousemove', function(event) {
             var x = event.offsetX
@@ -133,18 +128,6 @@ class Scene{
                 self.ball.y = y
             }
             inBlock = false
-            var editPoistion = [x, y]
-            for (var i = 0; i < self.blocks.length; i++) {
-                var b = self.blocks[i]
-                if (b.hasPoint(x, y)) {
-                    inBlock = true
-                }
-            }
-            log('inBlock', inBlock)
-            if (this.enableEdit && !inBlock ) {
-                self.editBlock(editPoistion)
-            }
-
 
         })
         game.canvas.addEventListener('mouseup', function(event) {
@@ -152,8 +135,6 @@ class Scene{
             var y = event.offsetY
             log(x, y, 'up')
             this.enableEdit = false
-            enableDrag = false
-            inBlock = false
         })
     }
 }

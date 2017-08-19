@@ -57,6 +57,7 @@ var __main = function() {
         ball: 'img/ball.png',
         block: 'img/block.png',
         paddle: 'img/paddle.png',
+        background: 'img/starfield.jpg',
     }
     var game = GuaGame.instance(30, images, function(g){
         var s = SceneTitle.new(g)
