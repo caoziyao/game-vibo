@@ -14,7 +14,7 @@ class Block{
         this.w = this.img.w
         this.h = this.img.h
 
-        log('xxxxx', this.x, this.y)
+        // log('xxxxx', this.x, this.y)
     }
 
     static new(...args) {

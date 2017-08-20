@@ -102,7 +102,7 @@ class Scene{
             self.paddle.moveRight()
         })
         game.registerAction('f', function(){
-            log('this.ball', self, self.ball)
+            // log('this.ball', self, self.ball)
             self.ball.fire()
         })
 
@@ -123,7 +123,7 @@ class Scene{
             var y = event.offsetY
             // log(x, y, 'move')
             if (enableDrag) {
-                log(x, y, 'drag')
+                // log(x, y, 'drag')
                 self.ball.x = x
                 self.ball.y = y
             }
@@ -133,7 +133,7 @@ class Scene{
         game.canvas.addEventListener('mouseup', function(event) {
             var x = event.offsetX
             var y = event.offsetY
-            log(x, y, 'up')
+            // log(x, y, 'up')
             this.enableEdit = false
         })
     }
