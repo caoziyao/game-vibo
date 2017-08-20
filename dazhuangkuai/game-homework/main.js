@@ -21,6 +21,8 @@ var loadLocalStorage = function (game) {
     for (var i = 0; i < ps.length; i++) {
         var p = ps[i]
         var b = Block.new(game, p)
+        b.x = b.x - b.w / 2
+        b.y = b.y - b.h / 2
         blocks.push(b)
     }
 

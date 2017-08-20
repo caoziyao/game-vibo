@@ -72,6 +72,11 @@ class SceneEdit{
         var i = index
         log('revoe block')
         this.blocks.splice(i, 1)
+
+        var ps = this.loadLocalPosition()
+        ps.splice(i, 1)
+        var s = JSON.stringify(ps)
+        localStorage.setItem('blocks', s)
     }
 
     hasPoint(x, y) {
