@@ -16,11 +16,17 @@ class SceneTitle extends GuaScene {
     setupInput() {
         var game = this.game
         var self = this
-        game.canvas.addEventListener('mousedown', function(event) {
-            // 检查是否点中了 ball
+        // game.canvas.addEventListener('mousedown', function(event) {
+        //     // 检查是否点中了 ball
+        //     var s = SceneMain.new(game)
+        //     game.replaceScene(s)
+        // })
+        game.registerAction('j', function(){
             var s = SceneMain.new(game)
             game.replaceScene(s)
         })
+
+
 
     }
 
@@ -41,7 +47,7 @@ class SceneTitle extends GuaScene {
     draw() {
         super.draw()
         this.game.context.fillStyle = "#ffffff"
-        this.game.context.fillText('点击鼠标开始游戏', 140, 200)
+        this.game.context.fillText('点击 j 开始游戏', 140, 200)
     }
 
 }

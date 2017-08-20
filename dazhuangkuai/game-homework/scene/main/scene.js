@@ -116,7 +116,7 @@ class Scene{
         game.canvas.addEventListener('mousedown', function(event) {
             var x = event.offsetX
             var y = event.offsetY
-            log(x, y, event)
+            //log(x, y, event)
             // 检查是否点中了 ball
 
             this.enableEdit = true
