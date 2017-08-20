@@ -34,7 +34,7 @@ class Scene{
         // draw blocks
         for (var i = 0; i < self.blocks.length; i++) {
             var block = self.blocks[i]
-            if (block.alive) {
+            if (block.alive == true) {
                 game.drawImage(block)
             }
         }
@@ -46,6 +46,11 @@ class Scene{
 
         game.drawImage(self.paddle)
         game.drawImage(self.ball)
+    }
+
+    removeBlock(index) {
+        this.blocks.splice(index, 1)
+
     }
 
     update() {
@@ -71,11 +76,13 @@ class Scene{
         for (var i = 0; i < self.blocks.length; i++) {
             var block = self.blocks[i]
             if (block.collide(self.ball)) {
-                // log('block 相撞')
+                log('block 相撞')
                 block.kill()
+                self.removeBlock(i)
                 self.ball.反弹()
                 // 更新分数
                 self.score += 100
+                //break
             }
         }
     }

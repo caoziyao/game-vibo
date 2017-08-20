@@ -114,7 +114,7 @@ class SceneEdit{
 
             var status = self.hasPoint(x, y)[0]
             var index = self.hasPoint(x, y)[1]
-            if (status) {
+            if (status && this.enableEdit) {
                 self.removeBlock(index)
             } else {
                 self.addBlock(editPoistion)

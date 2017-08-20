@@ -13,7 +13,7 @@ class Block{
         this.lifes = p[2] || 1
         this.w = this.img.w
         this.h = this.img.h
-
+        this.lifes = 1
         // log('xxxxx', this.x, this.y)
     }
 
@@ -32,8 +32,10 @@ class Block{
 
     kill() {
         this.lifes--
+
         if (this.lifes < 1) {
            this.alive = false
         }
+        log('this.lifes', this.lifes, this.alive)
     }
 }
