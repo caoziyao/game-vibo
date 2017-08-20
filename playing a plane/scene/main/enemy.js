@@ -21,9 +21,9 @@ class SceneEnemy {
         this.image = GuaImage.new(game, name)
         this.w = this.image.w
         this.h = this.image.h
-        this.cooldown = 0
+        this.cooldown = 10
         this.bullets = []
-        this.bulletSpeed = 12
+        this.bulletSpeed = 10
         this.bulletY = 0
         // 图片坐标
         this.x = randonBetween(0, 350)
@@ -69,7 +69,7 @@ class SceneEnemy {
     // 发射子弹
     fire() {
         if (this.cooldown == 0) {
-            this.cooldown = 10
+            this.cooldown = 15
             var game = this.game
             var bullet = SceneBullet.new(game)
             bullet.x = this.x + this.w / 2
@@ -88,7 +88,7 @@ class SceneEnemy {
 
     killing() {
         var self = this
-        self.alive = false
+        // self.alive = false
         self.image = GuaImage.new(self.game,'enemy_down')
         setTimeout(function () {
             self.kill()

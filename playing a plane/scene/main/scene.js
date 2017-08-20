@@ -47,7 +47,7 @@ class SceneMain extends GuaScene {
     // 初始化
     setup() {
         var game = this.game
-        this.numberOfEnemys = 8
+        this.numberOfEnemys = 6
         // 发射子弹 按下空格键
         game.registerAction('j',  () =>{
             this.hero.fire()
