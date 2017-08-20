@@ -12,7 +12,7 @@ class Ball{
     }
 
     static new(...args) {
-        this.i = this.i || new this(...args)
+        this.i = new this(...args)
         return this.i
     }
 

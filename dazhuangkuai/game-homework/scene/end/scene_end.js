@@ -7,6 +7,11 @@ class SceneEnd extends GuaScene {
             game.replaceScene(s)
         })
     }
+    static new(...args) {
+        this.i =  new this(...args)
+        return this.i
+    }
+    
     draw() {
         // draw labels
         this.game.context.drawImage(this.bg.image, 0, 0, 800, 600);

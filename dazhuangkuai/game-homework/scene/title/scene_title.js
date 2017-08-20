@@ -12,6 +12,11 @@ class SceneTitle extends GuaScene {
             game.replaceScene(s)
         })
     }
+    static new(...args) {
+        this.i =  new this(...args)
+        return this.i
+    }
+    
     draw() {
         // draw labels
 

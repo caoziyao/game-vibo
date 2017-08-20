@@ -12,10 +12,9 @@ class SceneEdit{
         this.setupInput()
     }
     static new(...args) {
-        this.i = this.i || new this(...args)
+        this.i =  new this(...args)
         return this.i
     }
-
 
     draw() {
         // draw 背景
@@ -131,7 +130,7 @@ class SceneEdit{
             var editPoistion = [x, y]
             var status = self.hasPoint(x, y)[0]
             var index = self.hasPoint(x, y)[1]
-            
+
             if (this.enableEdit && status) {
                 self.removeBlock(index)
             } else if (this.enableEdit) {
