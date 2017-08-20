@@ -5,9 +5,6 @@ class SceneEnemy {
         //this.background = game.imageByName('bg')
 
         this.setUp()
-
-
-
     }
 
     setUp() {
@@ -24,6 +21,10 @@ class SceneEnemy {
         this.image = GuaImage.new(game, name)
         this.w = this.image.w
         this.h = this.image.h
+        this.cooldown = 0
+        this.bullets = []
+        this.bulletSpeed = 12
+        this.bulletY = 0
         // 图片坐标
         this.x = randonBetween(0, 350)
         this.y = randonBetween(0, 200)
@@ -53,7 +54,30 @@ class SceneEnemy {
         // if (this.life == 0) {
         //     this.alive = false
         // }
+    }
 
+    addBullets() {
+
+    }
+
+    bulletMove() {
+        for (var p of this.bullets) {
+            p.y += this.bulletSpeed
+        }
+    }
+
+    // 发射子弹
+    fire() {
+        if (this.cooldown == 0) {
+            this.cooldown = 10
+            var game = this.game
+            var bullet = SceneBullet.new(game)
+            bullet.x = this.x + this.w / 2
+            bullet.y = this.y + this.h
+            this.bullets.push(bullet)
+            this.scene.addElement(bullet)
+        }
+        // bullet.fire()
     }
 
     hasPoint(x, y) {
@@ -85,7 +109,17 @@ class SceneEnemy {
             this.setUp()
         }
 
+        if (this.cooldown > 0) {
+            this.cooldown--
+        }
+
         this.move()
+
+        if (this.alive == true) {
+            this.fire()
+        }
+        this.bulletMove()
+
     }
 
 }

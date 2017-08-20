@@ -8,8 +8,8 @@ const config = {
 
     enemy_speed: {
         _comment: '敌机速度',
-        value: 2,
-        max: 20,
+        value: 1,
+        max: 4,
         min: 5,
     },
 

@@ -65,16 +65,25 @@ class SceneHero {
 
     }
 
+    bulletMove() {
+        for (var p of this.bullets) {
+            p.y -= p.speed
+        }
+    }
+
     update() {
         if (this.cooldown > 0) {
             this.cooldown--
         }
+
+        this.bulletMove()
     }
 
-    collide(enemy) {
-        log('enemy.alive', enemy.alive)
+    collideEnemy(enemy) {
+        // log('enemy.alive', enemy.alive)
         return enemy.alive && (rectIntersects(this, enemy) || rectIntersects(enemy, this))
     }
+
 
     kill() {
         this.alive = false

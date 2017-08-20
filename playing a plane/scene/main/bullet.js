@@ -22,7 +22,7 @@ class SceneBullet {
 
 
     move() {
-        this.y -= this.speed
+        //this.y -= this.speed
     }
 
     kill() {

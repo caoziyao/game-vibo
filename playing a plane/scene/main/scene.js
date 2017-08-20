@@ -6,6 +6,7 @@ class SceneMain extends GuaScene {
         // this.bg = game.imageByName('bg')
         this.hero = SceneHero.new(game)
         this.hero.scene = this
+
         // this.bullet = SceneBullet.new(game)
         this.enemys = []
 
@@ -29,8 +30,11 @@ class SceneMain extends GuaScene {
         var es = []
         for (var i = 0; i < this.numberOfEnemys; i++) {
             var e = SceneEnemy.new(game)
+            e.scene = this
+            //e.addBullets()
             es.push(e)
             this.addElement(e)
+
         }
         this.enemys = es
 
@@ -58,6 +62,7 @@ class SceneMain extends GuaScene {
         var b = bullet
         for (var j = 0; j < this.enemys.length; j++) {
             var e = this.enemys[j]
+            var eBullet = e.bullets
             if (b.collide(e)) {
                 //b.kill()
                 this.hero.removeBullet(index)
@@ -65,18 +70,35 @@ class SceneMain extends GuaScene {
                 // this.deleteElement(e)
             }
         }
+
+
     }
 
     heroCollid() {
         for (var j = 0; j < this.enemys.length; j++) {
             var e = this.enemys[j]
-            if (this.hero.collide(e)) {
+            if (this.hero.collideEnemy(e)) {
                 //b.kill()
                 this.hero.kill()
                 // this.deleteElement(e)
             }
         }
 
+    }
+
+    enemyBulletCollid() {
+        var game = this.game
+        for (var j = 0; j < this.enemys.length; j++) {
+            var e = this.enemys[j]
+            var eBullet = e.bullets
+            for (var eb of eBullet) {
+                if (eb.collide(this.hero)) {
+                    this.hero.kill()
+                }
+
+            }
+
+        }
     }
 
     update() {
@@ -90,6 +112,10 @@ class SceneMain extends GuaScene {
         }
         // 敌机碰撞
         this.heroCollid()
+
+        // 敌机子弹
+        this.enemyBulletCollid()
+
     }
 
 }
