@@ -9,12 +9,16 @@ class SceneMain extends GuaScene {
 
         // this.bullet = SceneBullet.new(game)
         this.enemys = []
-
+        this.ufo = UFO.new(game, 'ufo1')
+        this.ufo2 = UFO.new(game, 'ufo2')
         this.setup()
 
-        this.addElement(this.bg)
-        this.addElement(this.hero)
 
+        this.addElement(this.bg)
+
+        this.addElement(this.hero)
+        this.addElement(this.ufo)
+        this.addElement(this.ufo2)
         // 添加敌人
         this.addElements()
 
@@ -105,16 +109,29 @@ class SceneMain extends GuaScene {
         super.update()
         var game = this.game
 
-        // 子弹碰撞
+        // hero子弹碰撞敌机
         for (var i = 0; i < this.hero.bullets.length; i++) {
             var b = this.hero.bullets[i]
             this.bulletCollid(b)
         }
-        // 敌机碰撞
+        // 敌机碰撞 hero
         this.heroCollid()
 
-        // 敌机子弹
+        // 敌机子弹碰撞 hero
         this.enemyBulletCollid()
+
+        // 判断 ufo
+        if (this.ufo.collide(this.hero)) {
+            this.hero.changeBullet(10)
+            this.ufo.kill()
+        }
+        if (this.ufo2.collide(this.hero)) {
+            for (var j = 0; j < this.enemys.length; j++) {
+                var e = this.enemys[j]
+                e.killing()
+            }
+            this.ufo2.kill()
+        }
 
     }
 

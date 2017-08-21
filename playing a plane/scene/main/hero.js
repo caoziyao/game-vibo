@@ -17,10 +17,13 @@ class SceneHero {
         this.x = 150
         this.y = 450
         this.speed = config.hero_speed.value
+        // 子弹类型
+        this.numberOfBullet = 1
         // 子弹冷却时间
         this.cooldown = 0
 
         this.alive = true
+
     }
 
     static new(...args) {
@@ -101,26 +104,32 @@ class SceneHero {
         this.speed = config.hero_speed.value
     }
 
+
     // 发射子弹
     fire() {
         if (this.cooldown == 0) {
-            this.cooldown = 6
+            this.cooldown = config.bullet_cooldown.value
             var game = this.game
-            var bullet = SceneBullet.new(game)
-            bullet.x = this.x + 24
-            bullet.y = this.y
-            this.bullets.push(bullet)
-            this.scene.addElement(bullet)
+            for (var i = 0; i < this.numberOfBullet; i++) {
+                var b = SceneBullet.new(game)
+                var y = this.x + this.w / 2
+                b.x = i % 2 == 0 ? y  + i * 20 : y - i * 20
+                b.y = this.y
+                this.bullets.push(b)
+                this.scene.addElement(b)
+            }
         }
-
         // bullet.fire()
+    }
+
+    changeBullet(num) {
+        // var name = 'doubleBullet'
+        this.numberOfBullet = num
+
     }
 
     //
     removeBullet(index) {
-        // var b = this.bullets[i]
-        // this.scene.deleteElement(b)
 
-        //this.bullets.splice(index,1)
     }
 }

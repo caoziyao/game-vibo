@@ -54,6 +54,8 @@ var __main = function() {
         enemy3: 'img/enemy3.png',
         hero: 'img/hero.png',
         enemy_down: 'img/enemy_down.png',
+        ufo1: 'img/ufo1.png',
+        ufo2: 'img/ufo2.png',
     }
 
     // 生成配置 html 控件
