@@ -41,7 +41,6 @@ class SceneMain extends GuaScene {
 
         }
         this.enemys = es
-
     }
 
     deleteElement(element) {
@@ -75,7 +74,17 @@ class SceneMain extends GuaScene {
             }
         }
 
-
+        // 子弹碰子弹
+        for (var j = 0; j < this.enemys.length; j++) {
+            var e = this.enemys[j]
+            var eBullet = e.bullets
+            for (var eb of eBullet) {
+                if (eb.collide(bullet)) {
+                    eb.kill()
+                    bullet.kill()
+                }
+            }
+        }
     }
 
     heroCollid() {
@@ -99,27 +108,11 @@ class SceneMain extends GuaScene {
                 if (eb.collide(this.hero)) {
                     this.hero.kill()
                 }
-
             }
-
         }
     }
 
-    update() {
-        super.update()
-        var game = this.game
-
-        // hero子弹碰撞敌机
-        for (var i = 0; i < this.hero.bullets.length; i++) {
-            var b = this.hero.bullets[i]
-            this.bulletCollid(b)
-        }
-        // 敌机碰撞 hero
-        this.heroCollid()
-
-        // 敌机子弹碰撞 hero
-        this.enemyBulletCollid()
-
+    ufoCollid() {
         // 判断 ufo
         if (this.ufo.collide(this.hero)) {
             this.hero.changeBullet(10)
@@ -132,6 +125,26 @@ class SceneMain extends GuaScene {
             }
             this.ufo2.kill()
         }
+    }
+
+    update() {
+        super.update()
+        var game = this.game
+
+        // hero子弹碰撞敌机和子弹
+        for (var i = 0; i < this.hero.bullets.length; i++) {
+            var b = this.hero.bullets[i]
+            this.bulletCollid(b)
+        }
+
+        // 敌机碰撞 hero
+        this.heroCollid()
+
+        // 敌机子弹碰撞 hero
+        this.enemyBulletCollid()
+
+        // ufo
+        this.ufoCollid()
 
     }
 

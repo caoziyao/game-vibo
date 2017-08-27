@@ -8,7 +8,12 @@ class Scene{
 
         // this.blocks = loadLevel(game, 1)
         this.bg = game.imageByName('background');
-        this.blocks = loadLocalStorage(game)
+        this.storage = EditLocalStorage.new(game)
+        this.blocks = this.storage.loadLocalStorage()
+        log('this.blocks', this.blocks)
+        if (this.blocks.length < 1) {
+            this.blocks = loadLevel(game, 3)
+        }
 
         this.setup()
         this.setupInput()

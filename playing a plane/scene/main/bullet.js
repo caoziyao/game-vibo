@@ -40,7 +40,6 @@ class SceneBullet {
     collide(enemy) {
         // 子弹击中
         return  rectIntersects(this, enemy) || rectIntersects(enemy, this)
-
     }
 
     draw() {

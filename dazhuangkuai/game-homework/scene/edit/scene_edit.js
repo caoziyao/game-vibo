@@ -4,12 +4,15 @@ class SceneEdit{
 
         // this.ball = Ball.new(game)
         this.enableEdit = false
-
         // this.blocks = loadLevel(game, 1)
         this.bg = game.imageByName('background');
-        this.blocks = loadLocalStorage(game)
+
+        this.storage = EditLocalStorage.new(game)
+
+        this.blocks = this.storage.loadLocalStorage()
 
         this.setupInput()
+        this.text = SceneEditText.new(game)
     }
     static new(...args) {
         this.i =  new this(...args)
@@ -29,33 +32,18 @@ class SceneEdit{
                 game.drawImage(block)
             }
         }
-        // draw labels
-        //1. 使用`font`设置字体。
-       this.game.context.font = "16px serif";
-       //2. 使用`fillStyle`设置字体颜色。
-       this.game.context.fillStyle = "#ffffff";
-       //3. 使用`fillText()`方法显示字体。
-        this.game.context.fillText('鼠标点击开始编辑', 100, 290)
-        this.game.context.fillText('按 k 开始游戏', 100, 320)
-        this.game.context.fillText('按 q 清除砖块', 100, 350)
+        this.text.draw()
     }
 
     update() {
 
     }
 
-    loadLocalPosition() {
-        var ps = localStorage.getItem('blocks')
-        var ps = ps != null ? JSON.parse(ps) : []
-
-        return ps
-    }
-
     addBlock(positon) {
         // position: [x, y]
         var p = positon
         var game = this.game
-        var ps = this.loadLocalPosition()
+
 
         var block =  Block.new(game, p)
         block.x = block.x - block.w / 2
@@ -63,20 +51,16 @@ class SceneEdit{
         this.blocks.push(block)
 
         // 保存 localStorage
-        ps.push(p)
-        var s = JSON.stringify(ps)
-        localStorage.setItem('blocks', s)
+        this.storage.add(p)
     }
 
     removeBlock(index) {
         var i = index
-        log('revoe block')
         this.blocks.splice(i, 1)
 
-        var ps = this.loadLocalPosition()
+        var ps = this.storage.loadPosition()
         ps.splice(i, 1)
-        var s = JSON.stringify(ps)
-        localStorage.setItem('blocks', s)
+        this.storage.save(ps)
     }
 
     hasPoint(x, y) {
@@ -93,8 +77,7 @@ class SceneEdit{
 
     clean() {
         this.blocks = []
-        var s = JSON.stringify(this.blocks)
-        localStorage.setItem('blocks', s)
+        this.storage.clean()
     }
 
     setupInput() {
@@ -102,7 +85,6 @@ class SceneEdit{
         var self = this
         var game = this.game
         var enableDrag = false
-        var inBlock = false
 
         game.registerAction('q', function(){
             self.clean()
@@ -131,7 +113,6 @@ class SceneEdit{
             var x = event.offsetX
             var y = event.offsetY
             // log(x, y, 'move')
-            inBlock = false
             var editPoistion = [x, y]
             var status = self.hasPoint(x, y)[0]
             var index = self.hasPoint(x, y)[1]
@@ -149,9 +130,8 @@ class SceneEdit{
         game.canvas.addEventListener('mouseup', function(event) {
             var x = event.offsetX
             var y = event.offsetY
-            log(x, y, 'up')
+            // log(x, y, 'up')
             this.enableEdit = false
-            inBlock = false
         })
     }
 }
