@@ -3,116 +3,35 @@
     <head>
         <meta charset="utf-8">
         <title>mario</title>
-        <script src="utils.js"></script>
+        <style>
+            canvas{
+                border: 1px black solid;
+            }
+        </style>
+
     </head>
     <body>
         <h3>32768</h3>
         <canvas id="id-canvas" width="640" height="640"></canvas>
+        <canvas id="id-canvas-sprite" width="160" height="320"></canvas>
         <div class="gw-controls">
             <button data-action="change_offset" data-offset="-1024">-1024</button>
             <button  data-action="change_offset" data-offset="-16">-16</button>
             <button data-action="change_offset" data-offset="16">16</button>
             <button  data-action="change_offset" data-offset="1024">1024</button>
+            <button  data-action="pause" data-offset="1024">暂停</button>
         </div>
-        <script type="text/javascript">
-            /*
-                8 * 8 像素每个
-                2bits 每个像素
-                16 bytes 一个图块
-                每页 80*80 个图块，就是高宽各 64 像素
-            */
-            const drawBlock = (context, data, x, y, pixelWidth) => {
 
-                const colors = [
-                    'white',
-                    '#FE1000',
-                    '#FFB010',
-                    '#AA3030',
-                ]
+        <!-- 配置相关文件 -->
+        <script src="utils.js"></script>
 
-                let w = pixelWidth
-                let h = pixelWidth
-                let blockSzie = 8   // 一个图块代表 8 各像素
-                let pixelSize = 8   // 一个像素 8 bits
+        <!-- game 相关文件 -->
+        <script src="game/game.js"></script>
 
-                for (let i = 0; i < blockSzie; i++) {
-                    let p1 = data[i]
-                    let p2 = data[i + 8]
-                    for (let j = 0; j < blockSzie; j++) {
-                        // 8 byte
-                        // 78 -> 1001110, 69 -> 1000101
-                        let c1 = (p1 >> (7 - j)) & 0b00000001
-                        let c2 = (p2 >> (7 - j)) & 0b00000001
-                        let pixel = (c2 << 1) + c1
-                        let color = colors[pixel]
-                        context.fillStyle = color
-                        let px = x + j * w
-                        let py = y + i * h
+        <!-- scene 相关文件 -->
+        <script src="scene/main/background.js"></script>
+        <script src="scene/main/scene_main.js"></script>
 
-                        context.fillRect(px, py, w, h)
-                    }
-                }
-            }
-
-            const drawNes = bytes => {
-                // 78 69 第一个图块
-                // 78 -> 1001110, 69 -> 1000101
-                let canvas = e('#id-canvas')
-                let context = canvas.getContext('2d')
-
-                let blockSzie = 8   // 一个图块代表 8 各像素
-                let pixelSize = 8   // 一个像素 8 bits
-                let pixelWidth = 10 // 放大 10 倍
-                let numberOfBytesPerBlock = 16   // 16 bytes 一个图块
-
-
-                for (let i = 0; i < blockSzie; i++) {
-                    for (let j = 0; j < blockSzie; j++) {
-                        // 算出 bytes
-                        let x = j * pixelSize * pixelWidth
-                        let y = i * pixelSize * pixelWidth
-                        let index = window.offset + (i * 8  + j) * numberOfBytesPerBlock
-                        drawBlock(context, bytes.slice(index), x, y, pixelWidth)
-                    }
-                }
-
-            }
-
-            const actions = {
-                change_offset(offset) {
-                    window.offset += offset
-                    e('h3').innerHTML = window.offset
-                    drawNes(window.bytes)
-                },
-            }
-
-            const binEvents = () => {
-                e('.gw-controls').addEventListener('click', event => {
-                    let action = event.target.dataset.action
-                    let offset = Number(event.target.dataset.offset)
-                    actions[action] && actions[action](offset)
-
-                })
-            }
-
-            //
-            const __main = () => {
-                // 32784
-                window.offset = 32768
-                let request = {
-                    url: 'mario.nes',
-                    callback(r) {
-                        window.bytes = new Uint8Array(r)
-                        // log('bytes', bytes)
-                        drawNes(window.bytes)
-                    },
-                }
-                ajax(request)
-
-                binEvents()
-            }
-
-            __main()
-        </script>
+        <script src="main.js"></script>
     </body>
 </html>

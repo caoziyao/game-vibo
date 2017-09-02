@@ -1,8 +1,7 @@
+const e = sel => document.querySelector(sel)
+const log = console.log.bind(console)
 
-let e = sel => document.querySelector(sel)
-let log = console.log.bind(console)
-
-let ajax = request => {
+const ajax = request => {
     let r = new XMLHttpRequest()
     r.open('GET', request.url, true)
     r.responseType = 'arraybuffer'
