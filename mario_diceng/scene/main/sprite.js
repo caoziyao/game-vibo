@@ -6,6 +6,9 @@ class Sprite {
         this.onload = false
         this.frameSpace = 10
         this.step = 0
+        this.x = 0
+        this.y = 440
+        this.speed = 2
 
         this.colors = [
             'white',
@@ -48,16 +51,17 @@ class Sprite {
     }
 
     drawSprite(data) {
-        let canvas = e('#id-canvas-sprite')
-        let context = canvas.getContext('2d')
+        // let canvas = e('#id-canvas-sprite')
+        // let context = canvas.getContext('2d')
+        let context = this.game.context
         let pixelsPerBlock = 8
-        let pixelWidth = 10
+        let pixelWidth = 3
         let offset = 0
         let blockSize = pixelsPerBlock * pixelWidth
         for (let i = 0; i < 4; i++) {
             for (let j = 0; j < 2; j++) {
-                let x = j * blockSize
-                let y = i * blockSize
+                let x = j * blockSize + this.x
+                let y = i * blockSize + this.y
                 let pixels = data.slice(offset)
                 this.drawBlock(context, pixels, x, y, pixelWidth)
                 offset += 16
@@ -82,13 +86,48 @@ class Sprite {
                 let c1 = (p1 >> (7 - j)) & 0b00000001
                 let c2 = (p2 >> (7 - j)) & 0b00000001
                 let pixel = (c2 << 1) + c1
-                let color = colors[pixel]
-                context.fillStyle = color
-                let px = x + j * w
-                let py = y + i * h
+                if (pixel != 0 ) {
+                    let color = colors[pixel]
+                    context.fillStyle = color
+                    let px = x + j * w
+                    let py = y + i * h
 
-                context.fillRect(px, py, w, h)
+                    context.fillRect(px, py, w, h)
+                } else {
+
+                }
+
+
             }
+        }
+    }
+
+    moveRight() {
+        this.x += this.speed
+        if (this.x > 586 ) {
+            this.x = 586
+        }
+
+    }
+
+    moveLeft() {
+        this.x -= this.speed
+        if (this.x < 0 ) {
+            this.x = 0
+        }
+    }
+
+    moveUp() {
+        this.y -= this.speed
+        if (this.y <= 0) {
+            this.y = 0
+        }
+    }
+
+    moveDown() {
+        this.y += this.speed
+        if (this.y >= 440) {
+            this.y = 440
         }
     }
 
@@ -104,12 +143,16 @@ class Sprite {
 
         let offset = titleOffset + bytesPerSprite * step
 
-        if (this.onload && this.frameSpace == 0) {
+        if (this.onload) {
             // log('draw', step)
             let bytes = this.bytes
             this.drawSprite(bytes.slice(offset))
-            this.step++
-            this.step %= 4
+
+            if (this.frameSpace == 0) {
+                this.step++
+                this.step %= 4
+            }
+
         }
 
 

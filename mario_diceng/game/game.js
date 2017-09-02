@@ -4,10 +4,18 @@ class Game {
         this.images = images
         this.runCallback = callback
 
+        // 事件动作
+        this.actions = {}
+        // 是否按下键，如果按下则为 True
+        this.keydowns = {}
+
         this.canvas = e('#id-canvas')
         this.context = this.canvas.getContext('2d')
         this.width = this.canvas.width
         this.height = this.canvas.height
+
+
+        this.setup()
 
         this.init()
     }
@@ -15,6 +23,24 @@ class Game {
     static instance(...args) {
         this.i = this.i || new this(...args)
         return this.i
+    }
+
+    setup() {
+        window.addEventListener('keydown', event => {
+            var d = {
+                status: true,
+                event: event,
+            }
+            this.keydowns[event.key] = d
+        })
+
+        window.addEventListener('keyup', event => {
+            var d = {
+                status: false,
+                event: event,
+            }
+            this.keydowns[event.key] = d
+        })
     }
 
     textureByName(name) {
@@ -78,10 +104,35 @@ class Game {
 
     }
 
+    registerAction(key, callback) {
+        this.actions[key] = callback
+    }
+
 
     runloop() {
         let g = this
         let fps = this.fps
+
+        // 按键事件
+        var actions = Object.keys(g.actions)
+        for (var i = 0; i < actions.length; i++) {
+            var key = actions[i]
+            // 按键事件
+            var status = g.keydowns[key] && g.keydowns[key]['status']
+            var event = g.keydowns[key] && g.keydowns[key]['event']
+            if (status == true) {
+                g.actions[key](event)
+            } else if (status == false) {
+                g.actions[key](event)
+                // log('g', g)
+                var d = {
+                    status: null,
+                    event: event,
+                }
+                g.keydowns[key] = d
+            }
+        }
+
 
         // 更新位置
         g.update()
