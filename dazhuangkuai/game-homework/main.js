@@ -39,6 +39,7 @@ var __main = function() {
     var images = {
         ball: 'img/ball.png',
         block: 'img/block.png',
+        green_block: 'img/green.png',
         paddle: 'img/paddle.png',
         background: 'img/starfield.jpg',
     }

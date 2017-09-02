@@ -6,6 +6,7 @@ class SceneEdit{
         this.enableEdit = false
         // this.blocks = loadLevel(game, 1)
         this.bg = game.imageByName('background');
+        this.cooldown = 10
 
         this.storage = EditLocalStorage.new(game)
 
@@ -36,7 +37,7 @@ class SceneEdit{
     }
 
     update() {
-
+        this.cooldown--
     }
 
     addBlock(positon) {
@@ -108,6 +109,12 @@ class SceneEdit{
             }
 
         })
+        game.canvas.addEventListener('mouseup', function(event) {
+            var x = event.offsetX
+            var y = event.offsetY
+            // log(x, y, 'up')
+            this.enableEdit = false
+        })
 
         game.canvas.addEventListener('mousemove', function(event) {
             var x = event.offsetX
@@ -127,11 +134,6 @@ class SceneEdit{
 
 
         })
-        game.canvas.addEventListener('mouseup', function(event) {
-            var x = event.offsetX
-            var y = event.offsetY
-            // log(x, y, 'up')
-            this.enableEdit = false
-        })
+
     }
 }

@@ -118,35 +118,35 @@ class Scene{
             self.ball.fire()
         })
 
-        game.canvas.addEventListener('mousedown', function(event) {
-            var x = event.offsetX
-            var y = event.offsetY
-            //log(x, y, event)
-            // 检查是否点中了 ball
-
-            this.enableEdit = true
-            if (self.ball.hasPoint(x, y)) {
-                // 设置拖拽状态
-                enableDrag = true
-            }
-        })
-        game.canvas.addEventListener('mousemove', function(event) {
-            var x = event.offsetX
-            var y = event.offsetY
-            // log(x, y, 'move')
-            if (enableDrag) {
-                // log(x, y, 'drag')
-                self.ball.x = x
-                self.ball.y = y
-            }
-            inBlock = false
-
-        })
-        game.canvas.addEventListener('mouseup', function(event) {
-            var x = event.offsetX
-            var y = event.offsetY
-            // log(x, y, 'up')
-            this.enableEdit = false
-        })
+        // game.canvas.addEventListener('mousedown', function(event) {
+        //     var x = event.offsetX
+        //     var y = event.offsetY
+        //     //log(x, y, event)
+        //     // 检查是否点中了 ball
+        //
+        //     // this.enableEdit = true
+        //     if (self.ball.hasPoint(x, y)) {
+        //         // 设置拖拽状态
+        //         enableDrag = true
+        //     }
+        // })
+        // game.canvas.addEventListener('mousemove', function(event) {
+        //     var x = event.offsetX
+        //     var y = event.offsetY
+        //     // log(x, y, 'move')
+        //     if (enableDrag) {
+        //         // log(x, y, 'drag')
+        //         self.ball.x = x
+        //         self.ball.y = y
+        //     }
+        //     inBlock = false
+        //
+        // })
+        // game.canvas.addEventListener('mouseup', function(event) {
+        //     var x = event.offsetX
+        //     var y = event.offsetY
+        //     // log(x, y, 'up')
+        //     this.enableEdit = false
+        // })
     }
 }
