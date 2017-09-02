@@ -1,6 +1,13 @@
-class Sprite {
+class NetSprite {
     constructor(game) {
         this.game = game
+        this.setup()
+
+        this.bytes = this.nesBytes()
+        // this.addElement()
+    }
+
+    setup() {
         this.titleOffset = 32784
         this.elements = []
         this.onload = false
@@ -9,6 +16,24 @@ class Sprite {
         this.x = 0
         this.y = 440
         this.speed = 2
+        this.flipX = 0
+
+        /*
+            8 * 8 像素每个
+            2bits 每个像素
+            16 bytes 一个图块
+            每页 80*80 个图块，就是高宽各 64 像素
+        */
+        this.bytesPerPixel = 2  // 2bits 每个像素
+        this.pixelWidth = 3  // 放大多少倍
+        this.blockSzie = 8      // 8 * 8个像素--每图块
+        this.bytesPerBlock = this.blockSzie * this.bytesPerPixel // 16 bytes 一个图块
+        this.titlesPerSprite = 8
+        this.pixelsPerBlock = 8   // 8 * 8个像素--每图块
+
+        this.w = this.blockSzie * 2 * this.pixelWidth
+        this.h = this.blockSzie * 4 * this.pixelWidth
+
 
         this.colors = [
             'white',
@@ -16,10 +41,6 @@ class Sprite {
             '#FFB010',
             '#AA3030',
         ]
-
-        this.bytes = this.nesBytes()
-
-        // this.addElement()
     }
 
 
@@ -54,8 +75,8 @@ class Sprite {
         // let canvas = e('#id-canvas-sprite')
         // let context = canvas.getContext('2d')
         let context = this.game.context
-        let pixelsPerBlock = 8
-        let pixelWidth = 3
+        let pixelsPerBlock = this.pixelsPerBlock
+        let pixelWidth = this.pixelWidth
         let offset = 0
         let blockSize = pixelsPerBlock * pixelWidth
         for (let i = 0; i < 4; i++) {
@@ -74,7 +95,7 @@ class Sprite {
 
         let w = pixelWidth
         let h = pixelWidth
-        let blockSzie = 8   // 一个图块代表 8 各像素
+        let blockSzie = this.blockSzie   // 一个图块代表 8 各像素
         let pixelSize = 8   // 一个像素 8 bits
 
         for (let i = 0; i < blockSzie; i++) {
@@ -103,6 +124,7 @@ class Sprite {
     }
 
     moveRight() {
+        this.flipX = 0
         this.x += this.speed
         if (this.x > 586 ) {
             this.x = 586
@@ -111,6 +133,7 @@ class Sprite {
     }
 
     moveLeft() {
+        this.flipX = 1
         this.x -= this.speed
         if (this.x < 0 ) {
             this.x = 0
@@ -131,16 +154,16 @@ class Sprite {
         }
     }
 
-    draw() {
+
+    drawImage() {
         let g = this.game
         let titleOffset = this.titleOffset
 
         // drawNes(bytes)
         let step = this.step
-        let bytesPerBlock = 16
-        let titlesPerSprite = 8
+        let bytesPerBlock = this.bytesPerBlock
+        let titlesPerSprite = this.titlesPerSprite
         let bytesPerSprite = bytesPerBlock * titlesPerSprite
-
         let offset = titleOffset + bytesPerSprite * step
 
         if (this.onload) {
@@ -152,9 +175,29 @@ class Sprite {
                 this.step++
                 this.step %= 4
             }
-
         }
+    }
 
+    // 反向画图
+    reverDraw() {
+        let context = this.game.context
+        let x = this.x + this.w / 2
+
+        context.save()
+        context.translate(x, 0)
+        context.scale(-1, 1)
+        context.translate(-x, 0)
+        this.drawImage()
+        context.restore()
+    }
+
+    draw() {
+
+        if (this.flipX) {
+            this.reverDraw()
+        } else {
+            this.drawImage()
+        }
 
     }
 

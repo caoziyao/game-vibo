@@ -2,7 +2,7 @@ class SceneMain {
     constructor(game) {
         this.game = game
         this.bg = Background.new(game)
-        this.sprite = Sprite.new(game)
+        this.sprite = NetSprite.new(game)
 
         this.setup()
 
