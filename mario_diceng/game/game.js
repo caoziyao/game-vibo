@@ -18,9 +18,15 @@ class Game {
     }
 
     textureByName(name) {
+        let img = {}
         let texture = this.images[name]
+        img.texture = texture
+        img.w = texture.width
+        img.h = texture.height
+        img.x = 0
+        img.y = 0
 
-        return texture
+        return img
     }
 
     init() {
