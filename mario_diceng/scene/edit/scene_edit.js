@@ -1,13 +1,14 @@
-class SceneMain {
+class SceneEdit {
     constructor(game) {
         this.game = game
         this.bg = Background.new(game)
         this.sprite = NetSprite.new(game)
-
+        this.map = TitleMap.new(game)
         this.setup()
 
         this.elements = []
         this.addElement(this.bg)
+        this.addElement(this.map)
         this.addElement(this.sprite)
     }
 
@@ -20,7 +21,6 @@ class SceneMain {
         let self = this
         this.game.registerAction('d', function (event) {
             self.sprite.moveRight()
-            // self.sprite.vx = 0
         })
         this.game.registerAction('a', function (event) {
             self.sprite.moveLeft()

@@ -44,10 +44,13 @@ const __main = () => {
 
     let images = {
         bg: 'img/overworld_bg.png',
+        t1: 'img/t1.png',
+        t2: 'img/t2.gif',
+        t3: 'img/t3.gif',
     }
 
     let game = Game.instance(30, images, (game) => {
-        let s = SceneMain.new(game)
+        let s = SceneEdit.new(game)
 
         game.runWithScene(s)
     })

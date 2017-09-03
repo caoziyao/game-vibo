@@ -103,19 +103,19 @@
 
             }
 
-            const drawSprite = (data, canvas, offsetX, offsetY, w, h) => {
+            const drawSprite = (data, canvas, offsetX, offsetY, w, h, pixelWidth) => {
                 // let canvas = e('#id-canvas-sprite')
                 let context = canvas.getContext('2d')
                 let pixelsPerBlock = 8
-                let pixelWidth = 10
+                let pw = pixelWidth || 10
                 let offset = 0
-                let blockSize = pixelsPerBlock * pixelWidth
+                let blockSize = pixelsPerBlock * pw
                 for (let i = 0; i < h; i++) {
                     for (let j = 0; j < w; j++) {
                         let x = (offsetX + j) * blockSize
                         let y = (offsetY + i) * blockSize
                         let pixels = data.slice(offset)
-                        drawBlock(context, pixels, x, y, pixelWidth)
+                        drawBlock(context, pixels, x, y, pw)
                         offset += 16
                     }
                 }

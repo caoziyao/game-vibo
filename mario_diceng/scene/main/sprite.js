@@ -18,6 +18,9 @@ class NetSprite {
         this.speed = 2
         this.flipX = 0
 
+        // 摩擦力
+        this.mx = 0
+        this.vx = 0.02
         /*
             8 * 8 像素每个
             2bits 每个像素
@@ -41,6 +44,7 @@ class NetSprite {
             '#FFB010',
             '#AA3030',
         ]
+
     }
 
 
@@ -124,16 +128,23 @@ class NetSprite {
     }
 
     moveRight() {
+        let s = this.speed
         this.flipX = 0
-        this.x += this.speed
+        this.x += s
         if (this.x > 586 ) {
             this.x = 586
         }
 
+        if (this.vx != 0) {
+            this.speed += this.vx
+        } else {
+            // this.speed
+        }
     }
 
     moveLeft() {
         this.flipX = 1
+
         this.x -= this.speed
         if (this.x < 0 ) {
             this.x = 0
@@ -206,5 +217,6 @@ class NetSprite {
         if (this.frameSpace < 0) {
             this.frameSpace = 25
         }
+
     }
 }
