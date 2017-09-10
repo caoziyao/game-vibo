@@ -50,6 +50,7 @@ var __main = function() {
     var images = {
         bg: 'img/bg.jpg',
         gun: 'img/gun.png',
+        enemy: 'img/enemy.png',
     }
 
 
