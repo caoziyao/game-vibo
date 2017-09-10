@@ -22,13 +22,22 @@ class Gun{
     }
 
 
-
     setupInput() {
 
     }
 
-    // var img = element.image
-    // this.context.drawImage(img.texture, element.x, element.y, element.w, element.h)
+    clone() {
+        let c = Gun.new(this.game)
+
+        return c
+
+    }
+
+    poinInFrame({x, y}) {
+        let xIn = x >= this.x && x <= this.x + this.w
+        let yIn = y >= this.y && y <= this.y + this.h
+        return xIn && yIn
+    }
 
     draw() {
         let game = this.game

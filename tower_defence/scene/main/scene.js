@@ -3,9 +3,11 @@ class SceneMain extends GuaScene {
         super(game)
         this.setup()
 
-        this.elements = []
+
+        this.bg = GuaImage.new(game, 'bg')
         this.gun = Gun.new(game)
 
+        this.addElement(this.bg)
         this.addElement(this.gun)
     }
 
@@ -17,35 +19,43 @@ class SceneMain extends GuaScene {
 
 
     setup() {
-        var game = this.game
+        this.elements = []
 
         this.setupInput()
 
     }
-
-    // 鼠标按键
-    hasPoint(x, y) {
-        var xIn = x >= this.restart.x && x <= this.restart.x + this.restart.w
-        var yIn = y >= this.restart.y && y <= this.restart.y + this.restart.h
-        return xIn && yIn
-    }
-
 
 
     setupInput() {
         var game = this.game
         var self = this
         // mouser inputs
+        let startDrag = false
         this.game.registerMouse(function (event, status) {
-            log('mouse event', status, event)
+            let x = event.offsetX
+            let y = event.offsetY
+            let clicked = self.gun.poinInFrame({x, y})
+            if (status === 'down') {
+
+                if (clicked) {
+                    startDrag = true
+                    self.tower = self.gun.clone()
+                    self.addElement(self.tower)
+                }
+
+            } else if (status === 'move') {
+                self.tower.x = x
+                self.tower.y = y
+
+            } else {
+                startDrag = false
+                log('删除tower')
+                self.removeElement(self.tower)
+            }
+
         })
 
     }
-
-
-
-
-
 
 
     draw() {
@@ -56,10 +66,7 @@ class SceneMain extends GuaScene {
 
 
     update() {
-
         super.update()
-
-
 
     }
 

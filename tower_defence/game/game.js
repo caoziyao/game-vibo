@@ -28,7 +28,6 @@ class Game {
         let moving = false
         window.addEventListener('mousedown', event => {
             moving = true
-            log(' this.mouseActions',  this.mouseActions)
             for (let a of this.mouseActions) {
                 a(event, 'down')
             }

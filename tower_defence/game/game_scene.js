@@ -18,8 +18,8 @@ class GuaScene {
     }
     update() {
         if (this.debugModeEnabled) {
-            for (var i = 0; i < this.elements.length; i++) {
-                var e = this.elements[i]
+            for (let i = 0; i < this.elements.length; i++) {
+                let e = this.elements[i]
                 e.debug && e.debug()
             }
         }
@@ -34,4 +34,9 @@ class GuaScene {
     addElement(image) {
         this.elements.push(image)
     }
+
+    removeElement(node) {
+        this.elements = this.elements.filter(e => e != node)
+    }
+
 }

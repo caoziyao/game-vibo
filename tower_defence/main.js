@@ -48,7 +48,7 @@ var bindEvents = function () {
 
 var __main = function() {
     var images = {
-        background: 'img/bg.jpg',
+        bg: 'img/bg.jpg',
         gun: 'img/gun.png',
     }
 
