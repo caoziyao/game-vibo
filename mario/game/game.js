@@ -57,9 +57,7 @@ class Game {
     }
 
     draw() {
-
         this.scene.draw()
-
     }
 
     runloop() {
@@ -128,11 +126,7 @@ class Game {
                 if (loads.length == names.length) {
                     g.__start()
                 }
-
             }
         }
     }
-
-
-
 }

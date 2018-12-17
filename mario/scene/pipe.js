@@ -16,7 +16,6 @@ class Pipe{
         }
     }
 
-
     createElements(baseX, positions) {
         var game = this.game
         // var brickY = randonBetween(50, 200)
@@ -33,9 +32,7 @@ class Pipe{
         }
     }
 
-
     update() {
-
     }
 
     draw() {
@@ -48,6 +45,4 @@ class Pipe{
             game.context.drawImage(b.texture, b.x, b.y)
         }
     }
-
-
 }
