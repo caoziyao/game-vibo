@@ -80,8 +80,6 @@ class Bird extends GuaAnimation {
     }
 
     draw() {
-
-
         var context = this.game.context
         context.save()
         var x = this.x + this.w / 2
@@ -98,8 +96,6 @@ class Bird extends GuaAnimation {
 
         context.drawImage(this.image.texture, this.x, this.y, this.w, this.h)
         context.restore()
-
-
     }
 
     changeAnimation(name) {
@@ -107,9 +103,7 @@ class Bird extends GuaAnimation {
     }
 
     collide(pipe) {
-
         return rectIntersects(this, pipe) && rectIntersects(pipe, this)
-
     }
 
     update() {
@@ -118,7 +112,6 @@ class Bird extends GuaAnimation {
         this.vy += this.gy * 0.2
         if (this.y >= 465) {
             this.y = 465
-
         }
 
         // 更新角度
@@ -134,8 +127,6 @@ class Bird extends GuaAnimation {
             this.texture = this.frames()[this.frameIndex]
             this.image.texture = this.texture
         }
-
-
     }
 
 }

@@ -101,6 +101,7 @@ class Game {
 
     // 画图
     drawImage(element) {
+
         var img = element.image
         this.context.drawImage(img.texture, element.x, element.y, element.w, element.h)
     }

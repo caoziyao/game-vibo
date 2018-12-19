@@ -2,8 +2,8 @@ class ScenesMain extends GuaScene {
     constructor(game, positionX) {
         super(game)
         // this.game = game
-        this.h = this.game.height
-        this.w = this.game.width
+        // this.h = this.game.height
+        // this.w = this.game.width
 
         this.scenes = []
         this.sceneIdex = 0
@@ -11,8 +11,17 @@ class ScenesMain extends GuaScene {
         // this.mario = Mario.new(game)
         this.setupInput()
         this.addBackground()
+
+        this.step = 2
+        this.startX = 100
+        this.startY = 0
+
+        this.scrollX = this.startX
+        this.scrollY = this.startY
         // this.addElement(this.mario)
         // this.currentScene =
+
+        this.addBlock()
     }
 
     static new(...args) {
@@ -27,6 +36,11 @@ class ScenesMain extends GuaScene {
         this.bg.w = 400
         this.bg.h = 600
         this.addElement(this.bg)
+    }
+
+    addBlock() {
+        var tetromino = GameTetromino.new(this.game, 'S')
+        this.addElement(tetromino)
     }
 
     setupInput() {
@@ -60,5 +74,18 @@ class ScenesMain extends GuaScene {
 
     draw() {
         super.draw()
+
+        this.scrollY += this.step
+        var y = this.scrollY
+        var x = this.startX
+
+        // this.tetromino.drawBlockZ(x, y)
+
+        // this.tetromino.drawBlockI(100, 0)
+        // this.tetromino.drawBlockL(200, 0)
+        // this.tetromino.drawBlockS(0, 100)
+        // this.tetromino.drawBlockJ(0, 200)
+        // this.tetromino.drawBlockO(100, 200)
+        // this.tetromino.drawBlockT(200, 200)
     }
 }
